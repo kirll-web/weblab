@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ .Title }}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora&family=Oxygen:wght@300;400&family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/reset.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+  <section class="promo">
+    <header class="header header_theme-white">
+      <div class="container header__inner">
+        <span class="logo">Escape.</span>
+        <nav class="menu">
+          <a href="#" class="menu__item">HOME</a>
+          <a href="#" class="menu__item">Categories</a>
+          <a href="#" class="menu__item">About</a>
+          <a href="#" class="menu__item">Contact</a>
+        </nav>
+      </div>
+    </header>
+    <div class="container">
+      <h1 class="promo__title">Let's do it together.</h1>
+      <p class="promo__text">
+        We travel the world in search of stories. Come along for the ride.
+      </p>
+      <button class="promo__btn">
+        View Latest Posts
+      </button>
+    </div>
+  </section>
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a href="#" class="nav__item">Nature</a>
+      <a href="#" class="nav__item">Photography</a>
+      <a href="#" class="nav__item">Relaxation</a>
+      <a href="#" class="nav__item">Vacation</a>
+      <a href="#" class="nav__item">Travel</a>
+      <a href="#" class="nav__item">Adventure</a>
+    </div>
+  </nav>
+  <section class="news">
+    <div class="container">
+      <div class="featured-posts">
+        <h2 class="featured-posts__title news__title title__after">Featured Posts</h2>
+        <div class="featured-posts__wrapper">
+          {{ range .FeaturedPosts }}
+          <article class="featured-posts__post" style="background: url('{{ .ImgModifier }}') center center / cover no-repeat;">
+            <a href="/post{{ .PostId }}"  rel="noopener noreferrer">
+              <h3 class="featured-posts__post-title">
+                {{ .Title }}
+              </h3>
+              <h4 class="featured-posts__post-text">
+                {{ .Subtitle }}
+              </h4>
+              <div class="featured-posts__post-footer">
+                <div class="featured-posts__post-autor">
+                  <img src='{{ .AutorImg }}' alt="фото" class="featured-posts__post-autor-photo">
+                  <div class="featured-posts__post-autor-name">
+                    {{ .Autor }}
+                  </div>
+                </div>
+                <div class="featured-posts__post-date">
+                  {{ .PublishDate }}
+                </div>
+              </div>
+            </a>
+          </article>
+        {{ end }}
+        </div>
+      </div>
+      <div class="most-recent">
+        <h2 class="most-recent__title news__title title__after">Most Recent</h2>
+        <div class="most-recent__wrapper">
+          {{ range .MostRecentPosts }}
+              <article class="most-recent__post">
+                <a href="/post{{ .PostId }}"  rel="noopener noreferrer">
+                  <img src="{{ .ImgModifier }}" alt="Фото поста" class="most-recent__post-img">
+                  <div class="most-recent__post-body">
+                    <h3 class="most-recent__post-title">
+                      {{ .Title }}
+                    </h3>
+                    <p class="most-recent__post-text">
+                      {{ .Subtitle }}
+                    </p>
+                  </div>
+                  <div class="most-recent__post-footer">
+                    <div class="most-recent__post-autor">
+                      <img src="{{ .AutorImg }}" alt="фото" class="most-recent__post-autor-photo">
+                      <div class="most-recent__post-autor-name">
+                        {{ .Autor }}
+                      </div>
+                    </div>
+                    <div class="most-recent__post-date">
+                      {{ .PublishDate }}
+                    </div>
+                  </div>
+                </a>
+              </article>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="form__wrapper">
+    <div class="container">
+      <form action="submit" class="form" id="form" >
+        <h2 class="form__title title__after">Stay in Touch</h2>
+        <div class="form__body">
+          <input class="form__input-email" placeholder="Enter your email address" type="email">
+          <input type="submit" value="Submit" class="form__btn">
+        </div>
+      </form>
+    </div>
+    <footer class="footer">
+      <div class="container footer__inner">
+        <span class="logo">Escape.</span>
+        <nav class="menu">
+          <a href="#" class="menu__item">HOME</a>
+          <a href="#" class="menu__item">Categories</a>
+          <a href="#" class="menu__item">About</a>
+          <a href="#" class="menu__item">Contact</a>
+        </nav>
+      </div>
+    </footer>
+  </section>
+</body>
+</html>

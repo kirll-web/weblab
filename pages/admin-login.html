@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ .Title }}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora&family=Oxygen:wght@300;400&family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../static/css/reset.css">
+  <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+  <section class="admin__wrapper">
+    <div class="container admin">
+      <div class="admin__description">
+        <h2 class="admin__description-logo">
+          Escape.<span class="admin__description-logo_lower-text">autor</span>
+        </h2>
+        <p class="admin__description-text">
+          Log in to start creating
+        </p>
+      </div>
+      <form id="adminForm" method="post" action="#" class="admin__form">
+        <label class="admin__form-label" for="adminForm">Log In</label>
+        <label for="adminFormInputEmail" class="admin__form-input-label">Email</label>
+        <input id="adminFormInputEmail" type="email" class="admin__form-input">
+        <label for="adminFormInputPassword" class="admin__form-input-label">Password</label>
+        <input id="adminFormInputPassword" type="password" class="admin__form-input">
+        <input type="submit" value="Log In" class="admin__form-btn">
+      </form>
+    </div>
+  </section>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ .Title }}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora&family=Oxygen:wght@300;400&family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/reset.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+  <header class="header post__header header_theme-dark">
+    <div class="container  header__inner">
+      <span class="logo">Escape.</span>
+      <nav class="menu">
+        <a href="#" class="menu__item">HOME</a>
+        <a href="#" class="menu__item">Categories</a>
+        <a href="#" class="menu__item">About</a>
+        <a href="#" class="menu__item">Contact</a>
+      </nav>
+    </div>
+  </header>
+  <article class="post">
+    <div class="post__header">
+      <div class="container">
+        <h1 class="post__title">{{ .Title }}</h1>
+        <h2 class="post__subtitle">{{ .Subtitle }}</h2>
+      </div>
+    </div>
+    <div class="post__photo">
+      <img src="../{{ .ImgModifier }}" alt="Фото" class="post__img">
+    </div>
+    <div class="post__wrapper-text">
+      <div class="container">
+        <p class="post__text">
+          {{ .Content }}
+        </p>
+      </div>
+    </div>
+  </article>
+  <section class="form__wrapper">
+    <div class="container">
+      <form action="submit" class="form" id="form" >
+        <h2 class="form__title title__after">Stay in Touch</h2>
+        <div class="form__body">
+          <input class="form__input-email" placeholder="Enter your email address" type="email">
+          <input type="submit" value="Submit" class="form__btn">
+        </div>
+      </form>
+    </div>
+    <footer class="footer">
+      <div class="container footer__inner">
+        <span class="logo">Escape.</span>
+        <nav class="menu">
+          <a href="#" class="menu__item">HOME</a>
+          <a href="#" class="menu__item">Categories</a>
+          <a href="#" class="menu__item">About</a>
+          <a href="#" class="menu__item">Contact</a>
+        </nav>
+      </div>
+    </footer>
+  </section>
+</body>
+</html>
