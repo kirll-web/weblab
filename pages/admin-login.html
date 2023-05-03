@@ -13,21 +13,22 @@
   <section class="admin__wrapper">
     <div class="container admin">
       <div class="admin__description">
-        <h2 class="admin__description-logo">
-          Escape.<span class="admin__description-logo_lower-text">autor</span>
+        <h2 class="admin__logo">
+          Escape.<span class="admin__logo_lower-text">author</span>
         </h2>
         <p class="admin__description-text">
           Log in to start creating
         </p>
       </div>
       <form id="adminForm" method="post" action="#" class="admin__form">
-        <label class="admin__form-label" for="adminForm">Log In</label>
-        <label for="adminFormInputEmail" class="admin__form-input-label">Email</label>
-        <input id="adminFormInputEmail" type="email" class="admin__form-input">
+        <label class="admin__form-title" for="adminForm">Log In</label>
         <div class="admin__form-input-wrapper">
-          <label for="adminFormInputPassword" class="admin__form-input-label">Password</label>
-          <input id="adminFormInputPassword" type="password" class="admin__form-input">
-          <img src="../static/img/icons/password-eye.svg" alt="icon" class="admin__form-input-password-img">
+          <label for="adminFormInputEmail" class="admin__form-label">Email</label>
+          <input id="adminFormInputEmail" type="email" class="admin__form-input">
+        </div>
+        <div class=" admin__form-input-wrapper admin__form-input-wrapper-password admin__form-input-wrapper-password_password-hidden">
+          <label for="adminFormInputPassword " class="admin__form-label">Password</label>
+          <input id="adminFormInputPassword" type="password" class="admin__form-input ">
         </div>
         <input type="submit" value="Log In" class="admin__form-btn">
       </form>

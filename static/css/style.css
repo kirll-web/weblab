@@ -428,22 +428,22 @@
     justify-content: space-between;
     align-items: center;
     height: 100vh;
+    max-width: 1220px;
 }
 
 .admin__description 
 {
-
+    margin: 0 0 50px 100px;
 }
-/* font: italic 1.2em "Fira Sans", serif; */
-.admin__description-logo 
+
+.admin__logo 
 {
     font: 45px 'Lora';
-    margin-bottom: 16px;
 }
 
-.admin__description-logo_lower-text 
+.admin__logo_lower-text 
 {
-    font: 25px/2 'Lora';
+    font: 25px/2 'Oxygen';
 }
 
 .admin__description-text
@@ -457,15 +457,21 @@
     width: 100%;
     max-width: 480px;
     flex-direction: column;
-    padding: 40px 56px;
+    padding: 58px 40px 161px;
     background-color: #FFFFFF;
     color: #000000;
 }
 
-.admin__form-label
+.admin__form-title
 {
     font: 34px/1.17 'Lora';
     margin-bottom: 50px;
+}
+
+.admin__form-label
+{
+    font: 12px/1.3 'Roboto';
+    color: #7A7A7A;
 }
 
 .admin__form-input 
@@ -475,8 +481,44 @@
     max-width: 400px;
     height: 40px;
     border-bottom: 1px #EAEAEA solid;
-    margin-bottom: 40px;
     font: 16px/1.5 'Oxygen';
+}
+
+.admin__form-input-wrapper 
+{
+    margin-bottom: 45px;
+}
+
+.admin__form-input-wrapper-password 
+{
+    position: relative;
+}
+
+.admin__form-input-wrapper-password::after 
+{
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 12px;
+    display: block;
+    width: 22px;
+    height: 16px;
+}
+
+.admin__form-input-wrapper-password_password-hidden::after 
+{
+    background: url('../img/icons/password-eye.svg') center center/cover no-repeat;
+}
+
+.admin__form-btn 
+{
+    padding: 12px 24px;
+    width: 93px;
+    height: 48px;
+    background: #DD783F;
+    border-radius: 3px;
+    font: 16px/1.5 'Oxygen';
+    color: #FFFFFF;
 }
 
 
