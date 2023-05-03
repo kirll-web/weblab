@@ -11,14 +11,36 @@
 </head>
 <body>
   <header class="admin-header">
-    <div class="admin-header-logo">
+    <div class="admin-header__logo">
       <h2 class="admin__logo">
         Escape.<span class="admin__logo_lower-text">author</span>
       </h2>
     </div>
-    <a href="#" class="admin-header-profile">
+    <a href="#" class="admin-header__profile">
         <img class="admin-header-profile-photo" src="../static/img/post_autor/Avatar.png" alt="Photo">
     </a>
+    <div class="admin-header__exit">
+      <img src="../static/img/icons/exit-icon.svg" alt="Exit" class="admin-header__exit-icon">
+    </div>
   </header>
+  <section class="admin-form-wrapper">
+    <form class="admin-form">
+      <div class="admin-form-header">
+        <div class="admin-form-header__text">
+          <h2 class="admin-form-header__title">New Post</h2>
+          <p class="admin-form-header__descr">Fill out the form bellow and publish your article</p>
+        </div>
+        <button type="submit" class="admin-form__publish-btn"></button>
+      </div>
+      <div class="admin-form__error">Whoops! Some fields need your attention :o</div>
+      <div class="admin-form__main-info">
+        <h3 class="admin-form__main-info-title">Main Information</h3>
+        <div class="admin-form__input-text-wrapper">
+          <label class="admin-form__input-text-label"></label>
+          
+        </div>
+      </div>
+    </form>
+  </section>
 </body>
 </html>

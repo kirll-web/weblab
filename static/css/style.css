@@ -451,7 +451,7 @@
     font: 17px/2 'Lora';
 }
 
-.admin__form 
+.admin-login
 {
     display: flex;
     width: 100%;
@@ -462,19 +462,19 @@
     color: #000000;
 }
 
-.admin__form-title
+.admin-login__title
 {
     font: 34px/1.17 'Lora';
     margin-bottom: 50px;
 }
 
-.admin__form-label
+.admin-login__label
 {
     font: 12px/1.3 'Roboto';
     color: #7A7A7A;
 }
 
-.admin__form-input 
+.admin-login__input 
 {
     display: block;
     width: 100%;
@@ -484,17 +484,17 @@
     font: 16px/1.5 'Oxygen';
 }
 
-.admin__form-input-wrapper 
+.admin-login__input-wrapper 
 {
     margin-bottom: 45px;
 }
 
-.admin__form-input-wrapper-password 
+.admin-login__input-wrapper-password 
 {
     position: relative;
 }
 
-.admin__form-input-wrapper-password::after 
+.admin-login__input-wrapper-password::after 
 {
     content: '';
     position: absolute;
@@ -505,12 +505,12 @@
     height: 16px;
 }
 
-.admin__form-input-wrapper-password_password-hidden::after 
+.admin-login__input-wrapper-password_password-hidden::after 
 {
     background: url('../img/icons/password-eye.svg') center center/cover no-repeat;
 }
 
-.admin__form-btn 
+.admin-login__btn 
 {
     padding: 12px 24px;
     width: 93px;
