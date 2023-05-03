@@ -24,8 +24,11 @@
         <label class="admin__form-label" for="adminForm">Log In</label>
         <label for="adminFormInputEmail" class="admin__form-input-label">Email</label>
         <input id="adminFormInputEmail" type="email" class="admin__form-input">
-        <label for="adminFormInputPassword" class="admin__form-input-label">Password</label>
-        <input id="adminFormInputPassword" type="password" class="admin__form-input">
+        <div class="admin__form-input-wrapper">
+          <label for="adminFormInputPassword" class="admin__form-input-label">Password</label>
+          <input id="adminFormInputPassword" type="password" class="admin__form-input">
+          <img src="../static/img/icons/password-eye.svg" alt="icon" class="admin__form-input-password-img">
+        </div>
         <input type="submit" value="Log In" class="admin__form-btn">
       </form>
     </div>

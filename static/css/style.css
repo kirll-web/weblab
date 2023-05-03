@@ -454,6 +454,8 @@
 .admin__form 
 {
     display: flex;
+    width: 100%;
+    max-width: 480px;
     flex-direction: column;
     padding: 40px 56px;
     background-color: #FFFFFF;
@@ -466,15 +468,18 @@
     margin-bottom: 50px;
 }
 
-.admin__form 
+.admin__form-input 
 {
-
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    height: 40px;
+    border-bottom: 1px #EAEAEA solid;
+    margin-bottom: 40px;
+    font: 16px/1.5 'Oxygen';
 }
 
-.admin__form 
-{
 
-}
 
 
 
