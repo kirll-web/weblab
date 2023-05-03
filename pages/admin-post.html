@@ -32,12 +32,85 @@
         </div>
         <button type="submit" class="admin-form__publish-btn"></button>
       </div>
-      <div class="admin-form__error">Whoops! Some fields need your attention :o</div>
+      <div class="admin-form__info-about-input">Whoops! Some fields need your attention :o</div>
       <div class="admin-form__main-info">
         <h3 class="admin-form__main-info-title">Main Information</h3>
-        <div class="admin-form__input-text-wrapper">
-          <label class="admin-form__input-text-label"></label>
-          
+        <div class="admin-form__main-info-content">
+          <div class="admin-form__main-info-column">
+            <div class="admin-form__input-text-wrapper admin-form__input-wrapper">
+              <label for="adminPostTitle" class="admin-form__input-text-label admin__label">Title</label>
+              <input name="adminPostTitle" id="adminPostTitle" type="text" class="admin-form__input-text admin__input-text admin__input-text">
+              <p class="admin-form__input-error "></p>
+            </div>
+            <div class="admin-form__input-text-wrapper admin-form__input-wrapper">
+              <label for="adminPostShortDescr" class="admin-form__input-text-label admin__label">Short description</label>
+              <input id="adminPostShortDescr" name="adminPostShortDescr" type="text" class="admin-form__input-text admin__input-text">
+              <p class="admin-form__input-error "></p>
+            </div>
+            <div class="admin-form__input-text-wrapper admin-form__input-wrapper">
+              <label for="adminPostAuthorName" class="admin-form__input-text-label admin__label">Author name</label>
+              <input id="adminPostAuthorName" name="adminPostAuthorName"  type="text" class="admin-form__input-text admin__input-text">
+              <p class="admin-form__input-error "></p>
+            </div>
+            <div class="admin-form__input-wrapper admin-form__input-photo-wrapper">
+              <label for="adminPostAuthorPhoto" class="admin-form__input-img-label admin__label">Author Photo</label>
+              <input id="adminPostAuthorPhoto"  type="file" class="admin__input-photo-author admin__input-photo">
+              <p class="admin-form__input-error "></p>
+            </div>
+            <div class="admin-form__input-text-wrapper admin-form__input-date-wrapper admin-form__input-wrapper">
+              <label for="adminPostPublishDate" class="admin-form__input-text-label admin__label">Publish date</label>
+              <input id="adminPostPublishDate" name="adminPostPublishDate" type="date" class="admin-form__input-text  admin-form__input-date  admin__input-text admin__input-date">
+              <p class="admin-form__input-error "></p>
+            </div>
+            <div class="admin-form__input-wrapper">
+              <label for="adminPostImage" class="admin-form__input-image-label admin__label">Hero Image</label>
+              <input id="adminPostImage" name="adminPostImage" type="file" class="admin-form__image">
+              <p class="admin-form__input-error  admin-form__input-image-error"></p>
+            </div>
+            <div class="admin-form__input-wrapper">
+              <label for="adminPostSmallImage" class="admin-form__input-image-label admin__label">Hero Image</label>
+              <input id="adminPostImage" name="adminPostImage" type="file" class="admin-form__image admin-form__image_small">
+              <p class="admin-form__input-error"></p>
+            </div>
+          </div>
+          <div class="admin-form__main-info-columm">
+            <div class="admin-form__preview">
+              <label class="admin__label">Article preview</label>
+              <div class="admin-preview">
+                <div class="admin-preview__window">
+                  <div class="post__header admin-preview__header">
+                    <h1 class="post__title  admin-preview__title">New Post</h1>
+                    <h2 class="post__subtitle admin-preview__subtitle">Please, enter any description</h2>
+                  </div>
+                  <div class="admin-preview__photo" style="background: #F7F7F7;"></div>
+                </div>
+              </div>
+            </div>
+            <div class="admin-form__preview">
+              <label class="admin__label">Post card preview</label>
+              <div class="admin-preview__post">
+                <div class="admin-preview__window">
+                  <article class="most-recent__post">
+                    <div class="admin-preview__photo" style="background: #F7F7F7;"></div>
+                      <div class="most-recent__post-body">
+                        <h4 class="most-recent__post-title">
+                        </h4>
+                        <p class="most-recent__post-text">
+                        </p>
+                      </div>
+                      <div class="most-recent__post-footer">
+                        <div class="most-recent__post-autor">
+                          <div class="admin-preview__photo-author" style="background: #F7F7F7;"></div>
+                          <div class="most-recent__post-autor-name"></div>
+                        </div>
+                        <div class="most-recent__post-date">
+                        </div>
+                      </div>
+                  </article>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </form>
