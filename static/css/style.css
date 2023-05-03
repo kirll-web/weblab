@@ -521,6 +521,82 @@
     color: #FFFFFF;
 }
 
+.admin-form-wrapper
+{
+    background-color: #F5F5F5;
+    padding: 64px 0 0 0 ;
+}
+
+.admin-header
+{
+    padding: 20px 0;
+    background: #2E2E2E;
+}
+
+.admin-header__content
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+.admin-header__logo .admin__logo
+{
+    font-size: 25px;
+    align-items: center;
+}
+
+.admin-header__profile 
+{
+    margin-right: 10px;
+}
+
+.admin-header__user
+{
+    display: flex;
+    align-items: center;
+}
+
+.admin-header__logo .admin__logo_lower-text
+{
+    font-size: 14px;
+}
+
+.admin-form-header__title 
+{
+    font: 34px/1.2 'Lora';
+    color: #000000;
+}
+
+.admin-form-header__descr
+{
+    font: 14px/1.4 'Oxygen';
+    color: rgba(46, 46, 46, 0.63);
+
+}
+
+.admin-form__main-info 
+{
+    padding: 40px 40px 56px;
+    background: #FFFFFF;
+    box-shadow: 0px 6px 12px -10px rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+.admin-form__title
+{
+    
+}
+
+.admin-form__main-info-content
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+
+
 
 
 
