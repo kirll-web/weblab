@@ -58,23 +58,33 @@
                 <p class="admin-form__input-error "></p>
               </div>
               <div class="admin-form__input-wrapper admin-form__input-photo-wrapper">
-                <label for="adminPostAuthorPhoto" class="admin-form__input-img-label admin__label">Author Photo</label>
-                <input id="adminPostAuthorPhoto"  type="file" class="admin__input-photo-author admin__input-photo">
+                <label for="adminPostAuthorPhoto" class="admin-form__photo-author-label admin__label">Author Photo</label>
+                <div class="admin-form__photo-author-interface">
+                  <img src="../static/img/icons/upload-avatar.svg" alt="photo" class="admin-form__photo-author">
+                  <input id="adminPostAuthorPhoto"  type="file" class="admin__input-photo-author admin__input-photo admin-form__image">
+                  <label for="adminPostAuthorPhoto" id="adminPostUploadAvatar" class="admin-form__avatar-btn  admin-form__avatar-btn_upload">Upload</label>
+                  <label for="adminPostAuthorPhoto" id="adminPostUploadNewAvatar" class="admin-form__avatar-btn_upload-new  admin-form__avatar-btn hidden">Upload New</label>
+                  <label for="adminPostAuthorPhoto" id="adminPostDeleteAvatar" class="admin-form__avatar-btn admin-form__avatar-btn_remove hidden ">Remove</label>
+                </div>
                 <p class="admin-form__input-error "></p>
               </div>
               <div class="admin-form__input-text-wrapper admin-form__input-date-wrapper admin-form__input-wrapper">
                 <label for="adminPostPublishDate" class="admin-form__input-text-label admin__label">Publish date</label>
-                <input id="adminPostPublishDate" name="adminPostPublishDate" type="date" class="admin-form__input-text  admin-form__input-date  admin__input-text admin__input-date">
+                <input id="adminPostPublishDate" name="adminPostPublishDate" type="date" class="admin-form__input-text  admin-form__input-date admin__input-text admin__input-date">
                 <p class="admin-form__input-error "></p>
               </div>
-              <div class="admin-form__input-wrapper">
-                <label for="adminPostImage" class="admin-form__input-image-label admin__label">Hero Image</label>
-                <input id="adminPostImage" name="adminPostImage" type="file" class="admin-form__image">
+              <div class="admin-form__input-wrapper admin-form__input-image-wrapper_big">
+                <label for="adminPostImage" class="admin-form__input-image-label  admin__label">Hero Image</label>
+                <input id="adminPostImage" name="adminPostImage" type="file" class="admin-form__image admin-form__image_big">
+                <label for="adminPostImage" class="admin-form__image-label_big admin-form__image-label ">
+                  <!-- Upload -->
+                </label>
                 <p class="admin-form__input-error  admin-form__input-image-error"></p>
               </div>
               <div class="admin-form__input-wrapper">
-                <label for="adminPostSmallImage" class="admin-form__input-image-label admin__label">Hero Image</label>
-                <input id="adminPostImage" name="adminPostImage" type="file" class="admin-form__image admin-form__image_small">
+                <label for="adminPostImage" class="admin-form__input-image-label admin__label">Hero Image</label>
+                <input id="adminPostSmallImage" name="adminPostSmallImage" type="file" class="admin-form__image admin-form__image_small">
+                <label for="adminPostImage" class="admin-form__image-label_small admin-form__image-label"></label>
                 <p class="admin-form__input-error"></p>
               </div>
             </div>
@@ -119,7 +129,7 @@
           </div>
         </div>
         <div class="admin-form__content">
-          <h3 class="admin-form__title">Content</h3>
+          <h3 class="admin-form__title admin-form__content-title">Content</h3>
           <div class="admin-form__input-wrapper">
             <label for="adminPostText" class="admin__label">Post content (plain text)</label>
             <textarea name="adminPostText" class="admin-form__textarea" id="adminPostText"></textarea>
@@ -128,5 +138,6 @@
       </form>
     </div>
   </section>
+  <script src="../static/script/index.js"></script>
 </body>
 </html>

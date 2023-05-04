@@ -8,6 +8,11 @@
     padding: 0 20px;
 }
 
+.hidden
+{
+    display: none;
+}
+
 .header 
 {
     padding-top: 20px;
@@ -527,6 +532,11 @@
     padding: 64px 0 0 0 ;
 }
 
+.admin-form-wrapper .container
+{
+    max-width: 1180px;
+}
+
 .admin-header
 {
     padding: 20px 0;
@@ -565,6 +575,7 @@
 {
     font: 34px/1.2 'Lora';
     color: #000000;
+    margin-bottom: 10px;
 }
 
 .admin-form-header__descr
@@ -580,17 +591,231 @@
     background: #FFFFFF;
     box-shadow: 0px 6px 12px -10px rgba(0, 0, 0, 0.2);
     border-radius: 3px;
+    margin-bottom: 16px;
 }
 
-.admin-form__title
-{
-    
-}
+
 
 .admin-form__main-info-content
 {
     display: flex;
     justify-content: space-between;
+   
+}
+
+.admin-form__main-info-column
+{
+    max-width: 560px;
+    width: 100%;
+}
+
+
+
+.admin-form__title {
+    font: 27px/1.1 'Lora';
+    margin-bottom: 40px;
+    color: #000000;
+}
+
+.admin-form__input-wrapper 
+{
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.admin-form__input-wrapper .admin__input-text
+{
+    width: 100%;
+    max-width: none;
+}
+
+.admin-form__content 
+{
+    background-color: #FFFFFF;
+    padding: 40px;
+}
+
+.admin-form__content-title
+{
+    margin-bottom: 40px;
+}
+
+.admin-form__textarea 
+{
+    display: block;
+    padding: 8px;
+    width: 100%;
+    max-width: 940px;
+    height: 160px;
+    background: #FFFFFF;
+    border: 1px solid #EAEAEA;
+    border-radius: 5px;
+    font: 16px/1.5 'Oxygen';
+    color: #999999;
+    resize: vertical;
+}
+
+.admin-form__photo-author-label 
+{
+    display: block;
+    margin-bottom: 10px;
+}
+
+.admin-form__avatar-btn
+{
+    font: 16px/1.5 'Oxygen';
+    color: #000000;
+}
+
+
+.admin-form__avatar-btn_upload-new
+{
+    padding-left: 32px;
+    position: relative;
+}
+
+.admin-form__avatar-btn_upload-new::before
+{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    background: url('../img/icons/camera.svg');
+}
+
+.admin-form__avatar-btn_remove
+{
+    padding-left: 32px;
+    position: relative;
+    color: #E86961;
+}
+
+.admin-form__avatar-btn_remove:before
+{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    background: url('../img/icons/basket.svg');
+}
+
+.admin-form__photo-author-interface
+{
+    display: flex;
+    align-items: center;
+}
+
+.admin-form__photo-author
+{
+    margin-right: 15px;
+}
+
+.admin-form__image
+{
+    width: 0.1px;
+    height: 0.1px;
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    overflow: hidden;
+}
+
+.admin-form__image-label 
+{
+    display: block;
+    width: 100%;
+}
+
+.admin-form__input-image-wrapper_big
+{
+    width: 100%;
+    max-width: 560px;
+}
+
+.admin-form__input-image-label 
+{
+    display: block;
+    margin-bottom: 10px;
+}
+
+.admin-form__image-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    border: 1px dashed #D3D3D3;
+    border-radius: 6px;
+    background: #F7F7F7;
+    font: 16px/1.5 'Oxygen';
+    color: #000000;
+    text-align: center;
+}
+
+
+.admin-form__image-label::after
+{
+    content: 'Upload';
+    position: absolute;
+    font: 16px/1.5 'Oxygen';
+    color: #000000;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    left: 42%;
+    width: 24px;
+    height: 24px;
+    padding-left: 40px;
+    background: url('../img/icons/camera.svg') center center/contain no-repeat;
+}
+
+.admin-form__image-label_big
+{
+    max-width: 580px;
+    height: 188px;
+}
+
+.admin-form__image-label_small
+{
+    max-width: 296px;
+    height: 150px;
+}
+
+
+.admin-form__image-label_big::after
+{
+    left: 44%;
+}
+
+.admin-form__image-label_small::after
+{
+    left: 38%;
+}
+
+.admin-preview__window
+{
+    border-top: 1px solid #D3D3D3;
+    border-left: 1px solid #D3D3D3;
+    border-radius: 30px 0px 0px 0px;
+}
+
+.admin-form__preview
+{
+    position: relative;
+}
+
+.admin-form__preview::after
+{
+    width: 30%;
+    height: 296px;
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 84.72%);
 }
 
 
