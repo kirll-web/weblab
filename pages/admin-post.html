@@ -60,11 +60,14 @@
               <div class="admin-form__input-wrapper admin-form__input-photo-wrapper">
                 <label for="adminPostAuthorPhoto" class="admin-form__photo-author-label admin__label">Author Photo</label>
                 <div class="admin-form__photo-author-interface">
-                  <img src="../static/img/icons/upload-avatar.svg" alt="photo" class="admin-form__photo-author">
+                  <!-- <img src="../static/img/icons/upload-avatar.svg" alt="photo" class="admin-form__photo-author">
+                   -->
+                  <label for="adminPostUploadAvatar" id="" class="admin-form__image-label admin-form__avatar-label ">
+                  </label>
                   <input id="adminPostAuthorPhoto"  type="file" class="admin__input-photo-author admin__input-photo admin-form__image">
-                  <label for="adminPostAuthorPhoto" id="adminPostUploadAvatar" class="admin-form__avatar-btn  admin-form__avatar-btn_upload">Upload</label>
-                  <label for="adminPostAuthorPhoto" id="adminPostUploadNewAvatar" class="admin-form__avatar-btn_upload-new  admin-form__avatar-btn hidden">Upload New</label>
-                  <label for="adminPostAuthorPhoto" id="adminPostDeleteAvatar" class="admin-form__avatar-btn admin-form__avatar-btn_remove hidden ">Remove</label>
+                  <label for="adminPostAuthorPhoto" id="adminPostUploadAvatar" class="admin-form__image-btn  admin-form__image-btn_upload">Upload</label>
+                  <label for="adminPostAuthorPhoto" id="adminPostUploadNewAvatar" class="admin-form__image-btn_upload-new   admin-form__image-btn hidden">Upload New</label>
+                  <label for="adminPostAuthorPhoto" id="adminPostDeleteAvatar" class="admin-form__image-btn admin-form__image-btn_remove hidden ">Remove</label>
                 </div>
                 <p class="admin-form__input-error "></p>
               </div>
@@ -76,24 +79,30 @@
               <div class="admin-form__input-wrapper admin-form__input-image-wrapper_big">
                 <label for="adminPostImage" class="admin-form__input-image-label  admin__label">Hero Image</label>
                 <input id="adminPostImage" name="adminPostImage" type="file" class="admin-form__image admin-form__image_big">
-                <label for="adminPostImage" class="admin-form__image-label_big admin-form__image-label ">
-                  <!-- Upload -->
+                <label for="adminPostUploadImage" id="adminPostUploadImage" class="admin-form__image-label_big admin-form__image-label ">
                 </label>
+                <label for="adminPostImage" id="adminPostUploadNewImage" class="admin-form__image-btn_upload-new admin-form__hero-image-btn admin-form__image-btn ">Upload New</label>
+                <label for="adminPostImage" id="adminPostDeleteImage" class="admin-form__image-btn admin-form__image-btn_remove  admin-form__hero-image-btn">Remove</label>
                 <p class="admin-form__input-error  admin-form__input-image-error"></p>
               </div>
               <div class="admin-form__input-wrapper">
                 <label for="adminPostImage" class="admin-form__input-image-label admin__label">Hero Image</label>
                 <input id="adminPostSmallImage" name="adminPostSmallImage" type="file" class="admin-form__image admin-form__image_small">
                 <label for="adminPostImage" class="admin-form__image-label_small admin-form__image-label"></label>
+                <label for="adminPostImage" id="adminPostUploadNewImage" class="admin-form__image-btn_upload-new admin-form__hero-image-btn admin-form__image-btn ">Upload New</label>
+                <label for="adminPostImage" id="adminPostDeleteImage" class="admin-form__image-btn admin-form__image-btn_remove  admin-form__hero-image-btn">Remove</label>
                 <p class="admin-form__input-error"></p>
               </div>
             </div>
-            <div class="admin-form__main-info-columm">
+            <div class="admin-form__main-info-columm admin-form__main-info-columm_previev">
               <div class="admin-form__preview">
-                <label class="admin__label">Article preview</label>
+                <label class="admin__label admin-preview__label">Article preview</label>
                 <div class="admin-preview">
                   <div class="admin-preview__window">
-                    <div class="post__header admin-preview__header">
+                    <div class="admin-preview__header">
+                      <div class="admin-preview__menu"></div>
+                    </div>
+                    <div class="post__header admin-preview__post-header">
                       <h1 class="post__title  admin-preview__title">New Post</h1>
                       <h2 class="post__subtitle admin-preview__subtitle">Please, enter any description</h2>
                     </div>

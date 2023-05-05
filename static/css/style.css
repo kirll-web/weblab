@@ -398,7 +398,6 @@
     font-family: 'Oxygen';
     font-size: 17px;
     color: rgba(46, 46, 46, 0.63);
-    margin-bottom: 113px;
     text-align: center;
 }
 
@@ -661,42 +660,51 @@
     margin-bottom: 10px;
 }
 
-.admin-form__avatar-btn
+.admin-form__hero-image-btn
 {
+    display: inline-block;
+    margin: 20px 10px 0 0;
+}
+
+.admin-form__image-btn
+{
+
     font: 16px/1.5 'Oxygen';
     color: #000000;
 }
 
 
-.admin-form__avatar-btn_upload-new
+.admin-form__image-btn_upload-new
 {
     padding-left: 32px;
     position: relative;
 }
 
-.admin-form__avatar-btn_upload-new::before
+.admin-form__image-btn_upload-new::before
 {
     content: '';
     position: absolute;
-    top: 0;
+    top: 50%;
+    transform: translateY(-50%);
     left: 0;
     width: 24px;
     height: 24px;
     background: url('../img/icons/camera.svg');
 }
 
-.admin-form__avatar-btn_remove
+.admin-form__image-btn_remove
 {
     padding-left: 32px;
     position: relative;
     color: #E86961;
 }
 
-.admin-form__avatar-btn_remove:before
+.admin-form__image-btn_remove:before
 {
     content: '';
     position: absolute;
-    top: 0;
+    top: 50%;
+    transform: translateY(-50%);
     left: 0;
     width: 24px;
     height: 24px;
@@ -730,6 +738,8 @@
     width: 100%;
 }
 
+
+
 .admin-form__input-image-wrapper_big
 {
     width: 100%;
@@ -757,8 +767,9 @@
 }
 
 
+
 .admin-form__image-label::after
-{
+{   
     content: 'Upload';
     position: absolute;
     font: 16px/1.5 'Oxygen';
@@ -771,6 +782,23 @@
     padding-left: 40px;
     background: url('../img/icons/camera.svg') center center/contain no-repeat;
 }
+
+.admin-form__avatar-label
+{
+    display: block;
+    width: 48px;
+    height: 48px;
+    border-radius: 24px;
+    margin-right: 20px;
+}
+
+.admin-form__avatar-label::after
+{
+    content: '';
+    left: 50%;
+    padding: 0;
+}
+
 
 .admin-form__image-label_big
 {
@@ -795,27 +823,130 @@
     left: 38%;
 }
 
-.admin-preview__window
+.admin-form__image-label-load::after
+{
+    display: none;
+}
+
+
+.admin-preview
 {
     border-top: 1px solid #D3D3D3;
     border-left: 1px solid #D3D3D3;
     border-radius: 30px 0px 0px 0px;
+    padding: 32px 0 0 16px;
 }
 
-.admin-form__preview
+.admin-preview__window
+{
+    border-top: 1px solid #D3D3D3;
+    border-left: 1px solid #D3D3D3;
+    border-radius: 8px;
+}
+
+.admin-preview__header
+{
+    border-bottom: 1px solid #EAEAEA;
+    margin-bottom: 29px;
+}
+
+.admin-preview__menu, .admin-preview__menu::before, .admin-preview__menu::after
+{
+    width: 4px;
+    height: 4px;
+    background: #D9D9D9;
+    border-radius: 50%;
+}
+
+.admin-preview__menu
+{
+    position: relative;
+    margin: 10px 0 10px 16px;
+}
+
+.admin-preview__menu::before, .admin-preview__menu::after
+{
+    content: '';
+    position: absolute;
+    top: 0;
+    
+}
+
+.admin-preview__menu::before
+{
+    left: -7px;
+}
+
+.admin-preview__menu::after
+{
+    right: -7px;
+}
+
+.admin-preview
 {
     position: relative;
 }
 
-.admin-form__preview::after
+.admin-preview::before
 {
     width: 30%;
-    height: 296px;
+    height: 385px;
     content: '';
     position: absolute;
-    top: 0;
+    top: -5px;
     right: 0;
     background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 84.72%);
+}
+
+.admin-preview::after
+{
+    width: 100%;
+    height: 72px;
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -5px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%);
+}
+
+
+.admin-form__main-info-columm_previev
+{
+    max-width: 385px;
+    width: 100%;
+}
+
+.admin-preview__title
+{
+    font: 20px/1.2 'Lora';
+}
+
+.admin-preview__title
+{
+    font: 20px/1.2 'Lora';
+}
+
+.admin-preview__subtitle
+{
+    font: 10px/1.2 'Oxygen';
+}
+
+.admin-preview__post-header
+{
+    margin-bottom: 36px;
+}
+
+
+.admin-preview__photo
+{
+    height: 160px;
+    margin-bottom: 58px;
+}
+
+.admin-preview__label
+{
+    display: block;
+    margin-bottom: 16px;
 }
 
 
