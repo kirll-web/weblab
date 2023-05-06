@@ -8,10 +8,6 @@
     padding: 0 20px;
 }
 
-.hidden
-{
-    display: none;
-}
 
 .header 
 {
@@ -236,7 +232,6 @@
     min-height: 291px;
     margin-bottom: 21px;
     background-color: #FCFCFC;
-
 }
 
 .most-recent__post-body
@@ -514,7 +509,7 @@
     background: url('../img/icons/password-eye.svg') center center/cover no-repeat;
 }
 
-.admin-login__btn 
+.admin__btn 
 {
     padding: 12px 24px;
     width: 93px;
@@ -531,7 +526,7 @@
     padding: 64px 0 0 0 ;
 }
 
-.admin-form-wrapper .container
+.admin-login__container
 {
     max-width: 1180px;
 }
@@ -568,6 +563,36 @@
 .admin-header__logo .admin__logo_lower-text
 {
     font-size: 14px;
+}
+
+.admin-form__error {
+    position: relative;
+    padding: 12px 46px 12px;
+    width: 100%;
+    height: 44px;
+    background: #FFEBEA;
+    font: 14px/1.42 'Oxygen';
+    color: #000000;
+    border-left: 2px solid #E86961;
+    border-radius: 5px;
+    margin: 45px 0 29px;
+}
+
+.admin-form__error::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    width: 24px;
+    height: 24px;
+    background: url('../img/icons/alert-circle.svg') center center/contain no-repeat;
+}
+
+.admin-form-header
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .admin-form-header__title 
@@ -940,7 +965,6 @@
 .admin-preview__photo
 {
     height: 160px;
-    margin-bottom: 58px;
 }
 
 .admin-preview__label
@@ -950,6 +974,49 @@
 }
 
 
+.admin-preview__window
+{
+    padding-bottom: 58px;
+}
+
+.admin-preview_post
+{
+    padding: 32px 16px;
+}
+
+.admin-preview__post-wrapper
+{
+    margin-bottom: 30px;
+}
+
+.admin-preview__post
+{
+    border: 1px solid #EAEAEA;
+}
+
+.admin-preview__post-body 
+{
+    border-top: 1px #E5E5E5 solid;
+    border-bottom: 1px #E5E5E5 solid;
+}
+
+.admin-form__preview
+{
+    margin-bottom: 30px;
+}
+
+.admin-form__input-text_error
+{
+    border-bottom: 1px solid #E86961;
+}
+
+.admin-form__input-error
+{   
+    display: block;
+    margin-top: 7px;
+    font: 12px/1.4 'Oxygen';
+    color: #E86961;
+}
 
 
 
@@ -962,3 +1029,8 @@
 
 
 
+
+.hidden
+{
+    display: none;
+}

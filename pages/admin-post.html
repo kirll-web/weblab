@@ -10,9 +10,9 @@
   <link rel="stylesheet" href="../static/css/style.css">
 </head>
 <body>
-  <header class="admin-header">
-    <div class="container admin-header__content">
-      <div class="admin-header__logo">
+  <header class="admin-header ">
+    <div class="container admin-login__container admin-header__content">
+      <div class="admin-header__logo ">
         <h2 class="admin__logo">
           Escape.<span class="admin__logo_lower-text">author</span>
         </h2>
@@ -28,40 +28,38 @@
     </div>
   </header>
   <section class="admin-form-wrapper">
-    <div class="container">
-      <form class="admin-form">
+    <div class="container admin-login__container">
+      <form class="admin-form" id="admin-form" name="admin-form">
         <div class="admin-form-header">
           <div class="admin-form-header__text">
             <h2 class="admin-form-header__title">New Post</h2>
             <p class="admin-form-header__descr">Fill out the form bellow and publish your article</p>
           </div>
-          <button type="submit" class="admin-form__publish-btn"></button>
+          <input type="submit" value="Publish" class="admin__btn">
         </div>
-        <div class="admin-form__info-about-input">Whoops! Some fields need your attention :o</div>
+        <div class="admin-form__error hidden">Whoops! Some fields need your attention :o</div>
         <div class="admin-form__main-info">
           <h3 class="admin-form__title">Main Information</h3>
           <div class="admin-form__main-info-content">
             <div class="admin-form__main-info-column">
               <div class="admin-form__input-text-wrapper admin-form__input-wrapper">
                 <label for="adminPostTitle" class="admin-form__input-text-label admin__label">Title</label>
-                <input name="adminPostTitle" id="adminPostTitle" type="text" class="admin-form__input-text admin__input-text admin__input-text">
-                <p class="admin-form__input-error "></p>
+                <input name="adminPostTitle" id="adminPostTitle" type="text" class="admin-form__input-text  admin__input-text admin__input-text">
+                <label for="adminPostTitle" class="admin-form__input-error hidden ">Title name is required</label>
               </div>
               <div class="admin-form__input-text-wrapper admin-form__input-wrapper">
                 <label for="adminPostShortDescr" class="admin-form__input-text-label admin__label">Short description</label>
                 <input id="adminPostShortDescr" name="adminPostShortDescr" type="text" class="admin-form__input-text admin__input-text">
-                <p class="admin-form__input-error "></p>
+                <label for="adminPostShortDescr" class="admin-form__input-error hidden">Short description is required</label>
               </div>
               <div class="admin-form__input-text-wrapper admin-form__input-wrapper">
-                <label for="adminPostAuthorName" class="admin-form__input-text-label admin__label">Author name</label>
+                <label for="adminPostAuthorName" class="admin-form__input-text-label admin__label">Author Name</label>
                 <input id="adminPostAuthorName" name="adminPostAuthorName"  type="text" class="admin-form__input-text admin__input-text">
-                <p class="admin-form__input-error "></p>
+                <label for="adminPostAuthorName" class="admin-form__input-error hidden">Author name is required</label>
               </div>
               <div class="admin-form__input-wrapper admin-form__input-photo-wrapper">
                 <label for="adminPostAuthorPhoto" class="admin-form__photo-author-label admin__label">Author Photo</label>
                 <div class="admin-form__photo-author-interface">
-                  <!-- <img src="../static/img/icons/upload-avatar.svg" alt="photo" class="admin-form__photo-author">
-                   -->
                   <label for="adminPostUploadAvatar" id="" class="admin-form__image-label admin-form__avatar-label ">
                   </label>
                   <input id="adminPostAuthorPhoto"  type="file" class="admin__input-photo-author admin__input-photo admin-form__image">
@@ -69,12 +67,10 @@
                   <label for="adminPostAuthorPhoto" id="adminPostUploadNewAvatar" class="admin-form__image-btn_upload-new   admin-form__image-btn hidden">Upload New</label>
                   <label for="adminPostAuthorPhoto" id="adminPostDeleteAvatar" class="admin-form__image-btn admin-form__image-btn_remove hidden ">Remove</label>
                 </div>
-                <p class="admin-form__input-error "></p>
               </div>
               <div class="admin-form__input-text-wrapper admin-form__input-date-wrapper admin-form__input-wrapper">
                 <label for="adminPostPublishDate" class="admin-form__input-text-label admin__label">Publish date</label>
-                <input id="adminPostPublishDate" name="adminPostPublishDate" type="date" class="admin-form__input-text  admin-form__input-date admin__input-text admin__input-date">
-                <p class="admin-form__input-error "></p>
+                <input id="adminPostPublishDate" name="adminPostPublishDate" type="date" class=" admin-form__input-date admin__input-text admin__input-date">
               </div>
               <div class="admin-form__input-wrapper admin-form__input-image-wrapper_big">
                 <label for="adminPostImage" class="admin-form__input-image-label  admin__label">Hero Image</label>
@@ -83,7 +79,7 @@
                 </label>
                 <label for="adminPostImage" id="adminPostUploadNewImage" class="admin-form__image-btn_upload-new admin-form__hero-image-btn admin-form__image-btn ">Upload New</label>
                 <label for="adminPostImage" id="adminPostDeleteImage" class="admin-form__image-btn admin-form__image-btn_remove  admin-form__hero-image-btn">Remove</label>
-                <p class="admin-form__input-error  admin-form__input-image-error"></p>
+                <p class="admin-form__input-error hidden  admin-form__input-image-error"></p>
               </div>
               <div class="admin-form__input-wrapper">
                 <label for="adminPostImage" class="admin-form__input-image-label admin__label">Hero Image</label>
@@ -91,7 +87,7 @@
                 <label for="adminPostImage" class="admin-form__image-label_small admin-form__image-label"></label>
                 <label for="adminPostImage" id="adminPostUploadNewImage" class="admin-form__image-btn_upload-new admin-form__hero-image-btn admin-form__image-btn ">Upload New</label>
                 <label for="adminPostImage" id="adminPostDeleteImage" class="admin-form__image-btn admin-form__image-btn_remove  admin-form__hero-image-btn">Remove</label>
-                <p class="admin-form__input-error"></p>
+                
               </div>
             </div>
             <div class="admin-form__main-info-columm admin-form__main-info-columm_previev">
@@ -111,27 +107,25 @@
                 </div>
               </div>
               <div class="admin-form__preview">
-                <label class="admin__label">Post card preview</label>
-                <div class="admin-preview__post">
-                  <div class="admin-preview__window">
-                    <article class="most-recent__post">
-                      <div class="admin-preview__photo" style="background: #F7F7F7; "></div>
-                        <div class="most-recent__post-body">
-                          <h4 class="most-recent__post-title">aaa
-                          </h4>
-                          <p class="most-recent__post-text">aaaaaaaaaaaaaaa
-                          </p>
+                <label class="admin__label admin-preview__label">Article preview</label>
+                <div class="admin-preview admin-preview__post-wrapper">
+                  <article class="most-recent__post admin-preview__post">
+                    <div class="admin-preview__photo" style="background: #F7F7F7; "></div>
+                      <div class=" admin-preview__post-body most-recent__post-body">
+                        <h4 class="most-recent__post-title">aaa
+                        </h4>
+                        <p class="most-recent__post-text">aaaaaaaaaaaaaaa
+                        </p>
+                      </div>
+                      <div class="most-recent__post-footer">
+                        <div class="most-recent__post-autor">
+                          <div class="admin-preview__photo-author" style="background: #F7F7F7;"></div>
+                          <div class="most-recent__post-autor-name">Enter author name</div>
                         </div>
-                        <div class="most-recent__post-footer">
-                          <div class="most-recent__post-autor">
-                            <div class="admin-preview__photo-author" style="background: #F7F7F7;">aaaa</div>
-                            <div class="most-recent__post-autor-name">aaa</div>
-                          </div>
-                          <div class="most-recent__post-date">
-                          </div>
+                        <div class="most-recent__post-date">
                         </div>
-                    </article>
-                  </div>
+                      </div>
+                  </article>
                 </div>
               </div>
             </div>
@@ -141,7 +135,8 @@
           <h3 class="admin-form__title admin-form__content-title">Content</h3>
           <div class="admin-form__input-wrapper">
             <label for="adminPostText" class="admin__label">Post content (plain text)</label>
-            <textarea name="adminPostText" class="admin-form__textarea" id="adminPostText"></textarea>
+            <textarea name="adminPostText" class="admin-form__textarea admin-form__input-text" id="adminPostText"></textarea>
+            <label for="adminPostText" class="admin-form__input-error hidden">Content is required</label>
           </div>
         </div>
       </form>
