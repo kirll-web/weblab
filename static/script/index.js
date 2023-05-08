@@ -43,69 +43,143 @@ document.addEventListener('DOMContentLoaded', () => {
         return validate;
     };
 
-    const objClassesForUploadAuthorImage = {
-        wrapperSelector: '#adminPostAuthorImageWrapper',
+
+    const objUploadInput = {
+        authorImage: {
+            wrapperSelector: '#adminPostAuthorImageWrapper',
+            imageSelector: ['.admin-form__author-photo-preview', '.admin-preview__photo-author'],
+            deleteUploadBtn: true
+        },
+        bigImage: {
+            wrapperSelector: '#adminPostBigImageWrapper',
+            imageSelector: ['.admin-form__image-label_big', '.admin-preview__photo_big'],
+            deleteUploadBtn: false
+        },
+        smallImage: {
+            wrapperSelector: '#adminPostSmallImageWrapper',
+            imageSelector: ['.admin-form__image-label_small', '.admin-preview__photo_small'],
+            deleteUploadBtn: false
+        }
+
+    };
+
+    const objClassesInputAndBtnsForUploadImage = {
         inputSelector: '.admin__image-input', 
         uploadBtnSelector: '.admin__image-upload', 
         uploadNewBtnSelector: '.admin-form__image-btn_upload-new', 
-        removeBtnSelector: '.admin-form__image-btn_remove', 
-        imageSelector: ['.admin-form__author-photo-preview', '.admin-preview__photo-author'],
-        deleteUploadBtn: true
-    };
-    
-    const objClassesForUploadBigImage = {
-        wrapperSelector: '#adminPostBigImageWrapper',
-        inputSelector: '.admin__image-input', 
-        uploadBtnSelector: '.admin__image-upload', 
-        uploadNewBtnSelector: '.admin-form__image-btn_upload-new', 
-        removeBtnSelector: '.admin-form__image-btn_remove', 
-        imageSelector: ['.admin-form__image-label_big', '.admin-preview__photo_big'],
-        deleteUploadBtn: false
+        removeBtnSelector: '.admin-form__image-btn_remove',
+        hiddenClass: 'hidden'
     };
 
-    const objClassesForUploadSmallImage = {
-        wrapperSelector: '#adminPostSmallImageWrapper',
-        inputSelector: '.admin__image-input', 
-        uploadBtnSelector: '.admin-form__image-btn_upload', 
-        uploadNewBtnSelector: '.admin-form__image-btn_upload-new', 
-        removeBtnSelector: '.admin-form__image-btn_remove', 
-        imageSelector: ['.admin-form__image-label_small', '.admin-preview__photo_small'],
-        deleteUploadBtn: false
-    };
 
-    
+    const uploadImage = (objUploadInput, objClassesForInputAndBtn) => {
+
+        const inputSelector = objClassesForInputAndBtn.inputSelector,
+        uploadBtnSelector = objClassesForInputAndBtn.uploadBtnSelector,
+        uploadNewBtnSelector = objClassesForInputAndBtn.uploadNewBtnSelector,
+        removeBtnSelector = objClassesForInputAndBtn.removeBtnSelector,
+        hiddenClass = objClassesForInputAndBtn.hiddenClass;
+
+        let wrapper, imageSelectorArr, deleteUploadBtn;
+
+        for (let key in objUploadInput) {
+            let obj = objUploadInput[key],
+                wrapper = document.querySelector(obj.wrapperSelector),
+                input = wrapper.querySelector(inputSelector),
+                uploadBtn = wrapper.querySelector(uploadBtnSelector),
+                uploadNewBtn = wrapper.querySelector(uploadNewBtnSelector),
+                removeBtn = wrapper.querySelector(removeBtnSelector),
+                imageSelectorArr = obj.imageSelector,
+                deleteUploadBtn = obj.deleteUploadBtn;
+            console.log(uploadBtn);
+
+            input.addEventListener('input', () => {
+                imageSelectorArr.forEach(selector => {
+                    let imagePreviews = document.querySelector(selector);
+
+                    imagePreviews.style.background = `url('${window.URL.createObjectURL(input.files[0])}') center center/contain no-repeat`;
+
+                });
+
+                if (deleteUploadBtn) {
+                    uploadBtn.classList.add(hiddenClass);
+                    uploadNewBtn.classList.remove(hiddenClass);
+                    removeBtn.classList.remove(hiddenClass);
+                } else {
+                    uploadNewBtn.classList.remove(hiddenClass);
+                    removeBtn.classList.remove(hiddenClass);
+                }
+            });
+
+            removeBtn.addEventListener('click', () => {
+                // console.log(input.files[0]);
+                input.value = ""; 
+                console.log(input.files[0]);
+                imageSelectorArr.forEach(selector => {
+                    let imagePreviews = document.querySelector(selector);
+                    imagePreviews.style.background = ``;
+                });
+
+                if (deleteUploadBtn) {
+                    uploadBtn.classList.remove(hiddenClass);
+                    uploadNewBtn.classList.add(hiddenClass);
+                    removeBtn.classList.add(hiddenClass);
+                } else {
+                    uploadNewBtn.classList.add(hiddenClass);
+                    removeBtn.classList.add(hiddenClass);
+                }
+
+                
+            });
+            
+            
+            
+        }
+    };
+    uploadImage(objUploadInput, objClassesInputAndBtnsForUploadImage);
+    uploadImage(objUploadInput, objClassesInputAndBtnsForUploadImage);
+    uploadImage(objUploadInput, objClassesInputAndBtnsForUploadImage);
+
+
     const objInputTextAndPreviewText = {
         previewTitle: {
             input: '#adminPostTitle',
-            previewText: ['#adminPostTitlePreview', '#adminPostTitlePreviewPost']
+            previewText: ['#adminPostTitlePreview', '#adminPostTitlePreviewPost'],
+            required: true
         },
         previewDescr: {
             input: '#adminPostShortDescr',
-            previewText: ['#adminPostShortDescrPreview', '#adminPostShortDescrPreviewPost']
+            previewText: ['#adminPostShortDescrPreview', '#adminPostShortDescrPreviewPost'], 
+            required: true
         },
         previewAuthor: {
             input: '#adminPostAuthorName',
-            previewText: ['#adminPostAuthorNamePreview']
+            previewText: ['#adminPostAuthorNamePreview'],
+            required: true
         },
         previewDate: {
             input: '#adminPostPublishDate',
-            previewText: ['#adminPostPublishDatePreview']
+            previewText: ['#adminPostPublishDatePreview'],
+            required: false
         }
     };
 
     const updateTextInPreview = (objInputTextAndPreviewText, inputTextClassError, hiddenClass, attrStartText) => {
         for(let key in objInputTextAndPreviewText) {
-            let obj, previewTextArr, previewText, input;
+            let obj, previewTextArr, previewText, input, required;
             
             obj = objInputTextAndPreviewText[key];
             input = document.querySelector(obj.input);
-            previewTextArr = obj.previewText;
+            previewTextArr = obj.previewText,
+            required = obj.required;
             
             input.addEventListener('input', (event) => {
                 previewTextArr.forEach((classPreview) => {
                     previewText = document.querySelector(classPreview);
                     previewText.innerHTML =  event.target.value; 
-                    validateIntput(event.target, inputTextClassError, hiddenClass);
+                    if (required) {
+                        validateIntput(event.target, inputTextClassError, hiddenClass);
+                    }
                     if (event.target.value === '') {
                         previewText.innerHTML = previewText.getAttribute(attrStartText); 
                     }
@@ -118,31 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateTextInPreview(objInputTextAndPreviewText, 'admin-form__input-text_error', 'hidden', 'data-preview-text');
 
-    
 
-    
-
-    
-
-    
-
-
-    const uploadImage = (objClassesForUploadImage, classHidden) => {
-        const wrapper = document.querySelector(objClassesForUploadImage.wrapperSelector),
-            input = wrapper.querySelector(objClassesForUploadImage.inputSelector),
-            uploadBtn = wrapper.querySelector(objClassesForUploadImage.uploadBtnSelector),
-            uploadNewBtn = wrapper.querySelector(objClassesForUploadImage.uploadNewBtnSelector),
-        removeBtn = wrapper.querySelector(objClassesForUploadImage.removeBtnSelector);
-
-        let imagePreviews = [];
-
-        
-    };
-    uploadImage(objClassesForUploadAuthorImage, 'hidden');
-    uploadImage(objClassesForUploadBigImage, 'hidden');
-    uploadImage(objClassesForUploadSmallImage, 'hidden');
-
-    // imagePreviews[i].style.background = `url('${window.URL.createObjectURL(input.files[0])}') center center/contain no-repeat`;
 
     
 
