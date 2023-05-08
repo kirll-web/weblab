@@ -511,6 +511,7 @@
 
 .admin__btn 
 {
+    cursor: pointer;
     padding: 12px 24px;
     width: 93px;
     height: 48px;
@@ -575,7 +576,7 @@
     color: #000000;
     border-left: 2px solid #E86961;
     border-radius: 5px;
-    margin: 45px 0 29px;
+    margin-bottom: 29px;
 }
 
 .admin-form__error::before {
@@ -593,6 +594,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 45px;
 }
 
 .admin-form-header__title 
@@ -606,7 +608,6 @@
 {
     font: 14px/1.4 'Oxygen';
     color: rgba(46, 46, 46, 0.63);
-
 }
 
 .admin-form__main-info 
@@ -965,6 +966,7 @@
 .admin-preview__photo
 {
     height: 160px;
+    background: #F7F7F7;
 }
 
 .admin-preview__label
@@ -973,6 +975,13 @@
     margin-bottom: 16px;
 }
 
+.admin-preview__photo-author
+{
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
 
 .admin-preview__window
 {
@@ -986,7 +995,7 @@
 
 .admin-preview__post-wrapper
 {
-    margin-bottom: 30px;
+    margin-bottom: 37px;
 }
 
 .admin-preview__post
@@ -1005,6 +1014,11 @@
     margin-bottom: 30px;
 }
 
+.admin-form__input-image-wrapper label
+{
+    cursor: pointer;
+}
+
 .admin-form__input-text_error
 {
     border-bottom: 1px solid #E86961;
@@ -1017,18 +1031,6 @@
     font: 12px/1.4 'Oxygen';
     color: #E86961;
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 .hidden
 {
