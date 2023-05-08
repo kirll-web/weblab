@@ -26,6 +26,8 @@ func main() {
 
 	mux := mux.NewRouter()
 	mux.HandleFunc("/home", index(dbx))
+	mux.HandleFunc("/admin-login", adminLogin(dbx))
+	mux.HandleFunc("/admin-post", adminPost(dbx))
 	// mux.HandleFunc("/post", post(dbx))
 
 	// Указывем orderID поста в URL для перехода на конкретный пост

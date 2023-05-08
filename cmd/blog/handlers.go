@@ -19,6 +19,14 @@ type indexPageData struct {
 	MostRecentPosts []mostRecentPostData
 }
 
+type adminLoginPageData struct {
+	Title string
+}
+
+type adminPostPageData struct {
+	Title string
+}
+
 type postPage struct {
 	Title       string `db:"title"`
 	PostId      string `db:"post_id"`
@@ -80,6 +88,56 @@ func index(db *sqlx.DB) func(w http.ResponseWriter, r *http.Request) {
 			Subtitle:        "My best blog for adventures and burgers",
 			FeaturedPosts:   featuredPosts,
 			MostRecentPosts: mostRecentPosts,
+		}
+
+		err = ts.Execute(w, data) // Заставляем шаблонизатор вывести шаблон в тело ответа
+		if err != nil {
+			http.Error(w, "Internal Server Error", 500)
+			log.Println(err)
+			return
+		}
+
+		log.Println("Request completed successfully")
+	}
+}
+
+func adminLogin(db *sqlx.DB) func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
+
+		ts, err := template.ParseFiles("pages/admin-login.html") // Главная страница блога
+		if err != nil {
+			http.Error(w, "Internal Server Error", 500) // В случае ошибки парсинга - возвращаем 500
+			log.Println(err)
+			return // Не забываем завершить выполнение ф-ии
+		}
+
+		data := adminLoginPageData{
+			Title: "Admin Login",
+		}
+
+		err = ts.Execute(w, data) // Заставляем шаблонизатор вывести шаблон в тело ответа
+		if err != nil {
+			http.Error(w, "Internal Server Error", 500)
+			log.Println(err)
+			return
+		}
+
+		log.Println("Request completed successfully")
+	}
+}
+
+func adminPost(db *sqlx.DB) func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
+
+		ts, err := template.ParseFiles("pages/admin-post.html") // Главная страница блога
+		if err != nil {
+			http.Error(w, "Internal Server Error", 500) // В случае ошибки парсинга - возвращаем 500
+			log.Println(err)
+			return // Не забываем завершить выполнение ф-ии
+		}
+
+		data := adminPostPageData{
+			Title: "Admin Post",
 		}
 
 		err = ts.Execute(w, data) // Заставляем шаблонизатор вывести шаблон в тело ответа
