@@ -676,7 +676,7 @@
     border: 1px solid #EAEAEA;
     border-radius: 5px;
     font: 16px/1.5 'Oxygen';
-    color: #999999;
+    color: #000000;
     resize: vertical;
 }
 
@@ -689,7 +689,7 @@
 .admin-form__hero-image-btn
 {
     display: inline-block;
-    margin: 20px 10px 0 0;
+    margin-top: 20px;
 }
 
 .admin-form__image-btn
@@ -704,6 +704,7 @@
 {
     padding-left: 32px;
     position: relative;
+    margin-right: 15px;
 }
 
 .admin-form__image-btn_upload-new::before
@@ -825,6 +826,14 @@
     padding: 0;
 }
 
+.admin-form__avatar-label::after
+{
+    content: '';
+    left: 50%;
+    padding: 0;
+}
+
+
 
 .admin-form__image-label_big
 {
@@ -836,6 +845,11 @@
 {
     max-width: 296px;
     height: 150px;
+}
+
+.admin-form__setting-image::after
+{
+    display: none;
 }
 
 
@@ -853,7 +867,6 @@
 {
     display: none;
 }
-
 
 .admin-preview
 {
@@ -895,7 +908,6 @@
     content: '';
     position: absolute;
     top: 0;
-    
 }
 
 .admin-preview__menu::before
@@ -934,7 +946,6 @@
     left: -5px;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%);
 }
-
 
 .admin-form__main-info-columm_previev
 {
