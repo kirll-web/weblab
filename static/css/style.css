@@ -244,6 +244,18 @@
     background-color: #FCFCFC;
 }
 
+.most-recent__post-img
+{
+    max-width: 296px;
+    max-height: 150px;
+}
+
+.most-recent__post-autor-photo
+{
+    max-width: 26px;
+    max-height: 26px;
+}
+
 .most-recent__post-body
 {
     min-height: 91px;

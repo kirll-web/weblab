@@ -32,7 +32,7 @@ func main() {
 	// mux.HandleFunc("/post", post(dbx))
 
 	// Указывем orderID поста в URL для перехода на конкретный пост
-	mux.HandleFunc("/post{postID}", post(dbx))
+	mux.HandleFunc("/post/{postID}", post(dbx))
 
 	// Реализуем отдачу статики
 	mux.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))

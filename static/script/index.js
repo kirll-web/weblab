@@ -53,10 +53,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (input.files[0]) {
             reader.readAsDataURL(input.files[0]);
             reader.onloadend  =  () => {
-                imageForm[input.getAttribute('name')] = {
-                    imageInBase64: String(reader.result),
-                    nameFile: input.files[0].name
-                };
+                imageForm[input.getAttribute('name')] = String(reader.result);
+                // imageForm[input.getAttribute('name')] = '';
+                imageForm[`${input.getAttribute('name')}Name`] = input.files[0].name;
+                //     imageInBase64: ,
+                //     nameFile: input.files[0].name
+                // };
             };
         } else {
             imageForm[input.getAttribute('name')] = {};
@@ -207,7 +209,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         
         
-        
         if (validateForm(inputsText)) {
             for (let key in imageForm) {
                 newFormData[key] = imageForm[key];
@@ -220,8 +221,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
             console.log(newFormData);
             console.log(JSON.stringify(newFormData));
-        } else {
 
+            const createPost = fetch("/create-post", {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: "POST",
+                body: JSON.stringify(newFormData)
+            });
+
+            createPost.then((response) => {
+                response.text().then(function (data) {
+                    let result = data;
+                    console.log(result);
+                });
+            }).catch((error) => {
+                console.log(error);
+            });
+
+        } else {
             infoComponent.classList.remove(infoAboutStateSubmitForm.success.infoClass);
             infoComponent.classList.add(infoAboutStateSubmitForm.error.infoClass);
             infoComponent.classList.remove(hiddenClass);
@@ -231,6 +250,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
     });
-
     
 });

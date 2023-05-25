@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 createPost.then((response) => {
                     response.text().then(function (data) {
-                        let result = JSON.parse(data);
+                        let result = data;
                         console.log(result);
                     });
                 }).catch((error) => {
