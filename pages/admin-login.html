@@ -10,28 +10,37 @@
   <link rel="stylesheet" href="../static/css/style.css">
 </head>
 <body>
-  <section class="admin__wrapper">
-    <div class="container admin">
-      <div class="admin__description">
-        <h2 class="admin__logo">
-          Escape.<span class="admin__logo_lower-text">author</span>
-        </h2>
-        <p class="admin__description-text">
-          Log in to start creating
-        </p>
+  <section class="login__wrapper">
+    <div class="container container_login">
+      <div class="login">
+        <div class="login__descr">
+          <h2 class="login__descr-title">
+            Escape.<span>author</span>
+          </h2>
+          <p class="login__descr-text">
+            Log in to start creating
+          </p>
+        </div>
+        <form action="#" class="admin-form admin-form_login">
+          <h2 class="admin-form__title">
+            Log In
+          </h2>
+          <div class="admin-form__info admin-form__error">
+            Email or password is incorrect.
+          </div>
+          <div class="admin-form__input-wrapper admin-form__input-text-wrapper">
+            <label for="loginEmail" class="admin-form__input-label">Email</label>
+            <input id="loginEmail" name="loginEmail" type="email" class="admin-form__input-text">
+            <label for="loginEmail" class="admin-form__input-error hidden">Email is required.</label>
+          </div>
+          <div class="admin-form__input-wrapper admin-form__input-text-wrapper admin-form__input-text_password">
+            <label for="loginPassword" class="admin-form__input-label">Password</label>
+            <input id="loginPassword" name="loginEmail" type="password" class="admin-form__input-text">
+            <label for="loginPassword" class="admin-form__input-error hidden">Password is required.</label>
+          </div>
+          <input class="admin-form__btn" type="submit" value="Log In">
+        </form>
       </div>
-      <form id="adminLogin" method="post" action="#" class="admin-login">
-        <label class="admin-login__title" for="adminLogin">Log In</label>
-        <div class="admin-login__input-wrapper">
-          <label for="adminLoginInputEmail" class="admin-login__label admin__label">Email</label>
-          <input name="adminLoginInputEmail" id="adminLoginInputEmail" type="email" class="admin-login__input admin__input-text">
-        </div>
-        <div class="admin-login__input-wrapper admin-login__input-wrapper-password admin-login__input-wrapper-password_password-hidden">
-          <label for="adminLoginInputPassword" class="admin-login__label admin__label">Password</label>
-          <input name="adminFormInputPassword" id="adminFormInputPassword" type="password" class="admin-login__input admin__input-text">
-        </div>
-        <input type="submit" value="Log In" class="admin__btn">
-      </form>
     </div>
   </section>
   <script src="../static/script/index.js"></script>

@@ -4,7 +4,7 @@ INSERT INTO post (title, subtitle, author, author_url, publish_date, image_url, 
 
 INSERT INTO post (title, subtitle, image_url,author, author_url, publish_date,  featured) VALUES ('Still Standing Tall', 'Life begins at the end of your comfort zone', 'static/img/post_photo/balls.jpg', 'William Wong', 'static/img/post_autor/william_wong.jpg', '9/25/2015',  0);
 
-INSERT INTO post (title, subtitle, image_url,author, author_url, publish_date,  featured) VALUES ('Sunny Side Up', 'No place is ever as bad as they tell you it’s going to be.', 'static/img/post_photo/bridge.png', 'Mat Vogels', 'static/img/post_autor/mat_vogels.jpg', '9/25/2015',  0);
+INSERT INTO post (title, subtitle, image_url, author, author_url, publish_date,  featured) VALUES ('Sunny Side Up', 'No place is ever as bad as they tell you it’s going to be.', 'static/img/post_photo/bridge.png', 'Mat Vogels', 'static/img/post_autor/mat_vogels.jpg', '9/25/2015',  0);
 
 INSERT INTO post (title, subtitle, image_url,author, author_url, publish_date,  featured) VALUES ('Water Falls', 'We travel not to escape life, but for life not to escape us.', 'static/img/post_photo/lake.png', 'Mat Vogels', 'static/img/post_autor/mat_vogels.jpg', '9/25/2015',  0);
 

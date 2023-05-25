@@ -1,235 +1,235 @@
 'use strict';
 
 document.addEventListener('DOMContentLoaded', () => {
-    
-    const image = {};
-    const postForm = document.querySelector('#admin-form');
 
-    const validateForm = (formErrorSelector, inputTextSelector, inputTextClassError, hiddenClass) => {
+    const imageForm = {};
 
-        const formError = document.querySelector(formErrorSelector);
+    const form = document.querySelector('#adminPost'),
+     inputsText = form.querySelectorAll('.admin-form__input-text'),
+     inputsTextErrorClass = 'admin-form__input-text_error',
+     hiddenClass = 'hidden';
 
-        const validateInputText = (inputTextSelector, inputTextClassError) => {
-            const inputText = document.querySelectorAll(inputTextSelector);
-            let validate = true;
-
-            for (let i = 0; i < inputText.length; i++) {
-                inputText[i].addEventListener('input', (event) => {
-                    validateIntput(event.target, inputTextClassError, hiddenClass)
-                });
-                validate = validateIntput(inputText[i], inputTextClassError, hiddenClass);
-            }
-            return validate;
-        };
-
-        if (validateInputText(inputTextSelector, inputTextClassError)) {
-            formError.classList.add(hiddenClass);
-            return true;
-        } else {
-            formError.classList.remove(hiddenClass);
-            return false;
-        }
-        
+    const inputTextAndPreviewElemId = {
+        postTitle: ['previewTitleArticle', 'previewTitlePostCard'], 
+        postShortDescr: ['previewDescrArticle', 'previewDescrPostCard'], 
+        postAuthorName: ['previewAuthorNamePostCard'], 
+        postPublishDate: ['previewDatePostCard']
     };
 
-    const validateIntput = (input, inputTextClassError, hiddenClass) => {
-        let validate = true;
-        if (input.value === "" || input.value == undefined || input.value == null || input.length > 2) {
-            input.classList.add(inputTextClassError);
-            input.nextElementSibling.classList.remove(hiddenClass);
-            validate = false;
-        } else {
-            input.classList.remove(inputTextClassError);
-            input.nextElementSibling.classList.add(hiddenClass);
+    const componentsImageObj = {
+        inputsImage: {
+            postAdminPhoto: {
+                inputWrapper: 'adminFormAuthorPhoto',
+                previewsObj: ['previewAuthorPhotoInput', 'previewAuthorPhotoPostCard'],
+                deleteUploadBtnBoolean: true,
+                deleteImageInfo: false
+            }, 
+            postBigImage: {
+                inputWrapper: 'adminFormBigImage',
+                previewsObj: ['previewBigImageInput', 'previewBigImageArticle'],
+                deleteUploadBtnBoolean: false,
+                deleteImageInfo: true
+            },
+            postSmallImage: {
+                inputWrapper: 'adminFormSmallImage',
+                previewsObj: ['previewSmallImageInput', 'previewSmallImagePostCard'],
+                deleteUploadBtnBoolean: false,
+                deleteImageInfo: true
+            }
+        },
+
+        buttons: {
+            btnImageUploadSelector: '.admin-form__input-upload',
+            removeAndUploadNewBtnsWrapper: '.admin-form__input-btn-wrapper',
+            imageInfo: '.admin-form__image-info',
+            removeBtnSelector: '.admin-form__input-remove'
         }
+
+    };
+
+    const uploadImageInFormData = async (imageForm, input) => {
+        let reader = new FileReader();
+
+        if (input.files[0]) {
+            reader.readAsDataURL(input.files[0]);
+            reader.onloadend  =  () => {
+                imageForm[input.getAttribute('name')] = {
+                    imageInBase64: String(reader.result),
+                    nameFile: input.files[0].name
+                };
+            };
+        } else {
+            imageForm[input.getAttribute('name')] = {};
+        }
+    };
+
+    const workWithImageInput = (componentsImageObj) => {
+
+        const inputsImageObj =  componentsImageObj.inputsImage;
+
+        const updatePreviews = (arrPreviews, style) =>{
+            arrPreviews.forEach(preview => {
+                 document.querySelector(`#${preview}`).style.background = `${style}`;
+            });
+        };
+
+         const showAndHideUploadNewAndRemoveBtns = (show, imageObj, wrapper, wrapperBtns) =>  {
+            if (show) {
+                if (imageObj.deleteUploadBtnBoolean) {
+                    wrapper.querySelector(componentsImageObj.buttons.btnImageUploadSelector).classList.add(hiddenClass);
+                }
+
+                if (imageObj.deleteImageInfo) {
+                    wrapper.querySelector(componentsImageObj.buttons.imageInfo).classList.add(hiddenClass);
+                }
+                wrapperBtns.classList.remove(hiddenClass);
+            } else {
+                if (imageObj.deleteUploadBtnBoolean) {
+                    wrapper.querySelector(componentsImageObj.buttons.btnImageUploadSelector).classList.remove(hiddenClass);
+                }
+
+                if (imageObj.deleteImageInfo) {
+                    wrapper.querySelector(componentsImageObj.buttons.imageInfo).classList.remove(hiddenClass);
+                }
+                wrapperBtns.classList.add(hiddenClass);
+            }
+        };
+
+        for (let key in inputsImageObj) {
+            let input = document.querySelector(`#${key}`),
+            wrapper = document.querySelector(`#${inputsImageObj[key].inputWrapper}`),
+            wrapperBtns = wrapper.querySelector(componentsImageObj.buttons.removeAndUploadNewBtnsWrapper),
+            removeBtn = wrapper.querySelector(componentsImageObj.buttons.removeBtnSelector);
+
+            input.addEventListener('input', () => {
+
+                if (input.files[0]) {
+                    updatePreviews(inputsImageObj[key].previewsObj, 
+                        `url('${window.URL.createObjectURL(input.files[0])}') center center/cover no-repeat`);
+
+                    showAndHideUploadNewAndRemoveBtns(true, inputsImageObj[key], wrapper, wrapperBtns);
+
+                    uploadImageInFormData(imageForm, input);
+                } 
+
+            });
+            
+            removeBtn.addEventListener('click', (event) => {
+                event.preventDefault();
+
+                const attrFor = event.target.getAttribute('for'),
+                    input = document.querySelector(`#${attrFor}`);
+
+                input.value = '';
+
+                updatePreviews(inputsImageObj[key].previewsObj, '');
+
+                showAndHideUploadNewAndRemoveBtns(false, inputsImageObj[key], wrapper, wrapperBtns);
+
+                uploadImageInFormData(imageForm, input);
+                
+            });
+
+        }
+    };
+
+    workWithImageInput(componentsImageObj);
+
+    const activateErrorInputText = (input, inputsTextErrorClass, hiddenClass) => {
+        input.classList.add(inputsTextErrorClass);
+        input.nextElementSibling.classList.remove(hiddenClass);
+    };
+
+    const deactivateErrorInputText = (input, inputsTextErrorClass, hiddenClass) => {
+        input.classList.remove(inputsTextErrorClass);
+        input.nextElementSibling.classList.add(hiddenClass);
+    };
+
+    const validateForm = (inputsText) => {
+        return validateInputsText(inputsText);
+    };
+    
+    const validateInputsText = (inputs) => {
+        let validate = true;
+        inputs.forEach(input => {
+            if(input.value === '' || input.value === null ||  input.value === undefined) {
+                validate = false; 
+                activateErrorInputText(input, inputsTextErrorClass, hiddenClass);
+            }
+        });
 
         return validate;
     };
 
-
-    const objUploadInput = {
-        authorImage: {
-            wrapperSelector: '#adminPostAuthorImageWrapper',
-            imageSelector: ['.admin-form__author-photo-preview', '.admin-preview__photo-author'],
-            deleteUploadBtn: true
-        },
-        bigImage: {
-            wrapperSelector: '#adminPostBigImageWrapper',
-            imageSelector: ['.admin-form__image-label_big', '.admin-preview__photo_big'],
-            deleteUploadBtn: false
-        },
-        smallImage: {
-            wrapperSelector: '#adminPostSmallImageWrapper',
-            imageSelector: ['.admin-form__image-label_small', '.admin-preview__photo_small'],
-            deleteUploadBtn: false
+    const showPreviewTextInputs = (inputTextAndPreviewElemId) => {
+        let elem, previewElem;
+        for(let elemId in inputTextAndPreviewElemId) {
+            elem = document.querySelector(`#${elemId}`);
+            inputTextAndPreviewElemId[elemId].forEach(idPreview => {
+                previewElem = document.querySelector(`#${idPreview}`);
+                if (elem.value != '') {
+                    previewElem.innerHTML = elem.value;
+                } else {
+                    previewElem.innerHTML = previewElem.getAttribute('data-default-value');
+                }
+            });
         }
-
     };
 
-    const objClassesInputAndBtnsForUploadImage = {
-        inputSelector: '.admin__image-input', 
-        uploadBtnSelector: '.admin__image-upload', 
-        uploadNewBtnSelector: '.admin-form__image-btn_upload-new', 
-        removeBtnSelector: '.admin-form__image-btn_remove',
-        hiddenClass: 'hidden'
-    };
-
-
-    const uploadImage = (objUploadInput, objClassesForInputAndBtn) => {
-        let reader = new FileReader();
-
-        const inputSelector = objClassesForInputAndBtn.inputSelector,
-        uploadBtnSelector = objClassesForInputAndBtn.uploadBtnSelector,
-        uploadNewBtnSelector = objClassesForInputAndBtn.uploadNewBtnSelector,
-        removeBtnSelector = objClassesForInputAndBtn.removeBtnSelector,
-        hiddenClass = objClassesForInputAndBtn.hiddenClass;
-
-
-        const updateAndRemoveImage = (update, input,imageSelectorArr, uploadBtn, uploadNewBtn, removeBtn, deleteUploadBtn) => {
-            let imagePreviews;
-            if (update) {
-                imageSelectorArr.forEach(selector => {
-                    imagePreviews = document.querySelector(selector);
-
-                    imagePreviews.style.background = `url('${window.URL.createObjectURL(input.files[0])}') center center/contain no-repeat`;
-
-                    imagePreviews.classList.add('admin-form__setting-image');
-                });
-
-                if (deleteUploadBtn) {
-                    uploadBtn.classList.add(hiddenClass);
-                    uploadNewBtn.classList.remove(hiddenClass);
-                    removeBtn.classList.remove(hiddenClass);
-                } else {
-                    uploadNewBtn.classList.remove(hiddenClass);
-                    removeBtn.classList.remove(hiddenClass);
-                }
+    inputsText.forEach(input => {
+        input.addEventListener('input', () => {
+            showPreviewTextInputs(inputTextAndPreviewElemId);
+            if(input.value === '' || input.value === null ||  input.value === undefined) {
+                activateErrorInputText(input, inputsTextErrorClass, hiddenClass);
             } else {
-                input.value = ""; 
-                imageSelectorArr.forEach(selector => {
-                    imagePreviews = document.querySelector(selector);
-                    imagePreviews.style.background = ``;
-                    imagePreviews.classList.remove('admin-form__setting-image');
-                });
-                if (deleteUploadBtn) {
-                    uploadBtn.classList.remove(hiddenClass);
-                    uploadNewBtn.classList.add(hiddenClass);
-                    removeBtn.classList.add(hiddenClass);
-                } else {
-                    uploadNewBtn.classList.add(hiddenClass);
-                    removeBtn.classList.add(hiddenClass);
-                }
+                deactivateErrorInputText (input, inputsTextErrorClass, hiddenClass);
+            }
+        });
+    });
+
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const formData = new FormData(form),
+              newFormData = Object.fromEntries(formData),
+              infoComponent = form.querySelector('.admin-form__info');
+
+        const infoAboutStateSubmitForm = {
+            success: {
+                infoClass: 'admin-form__success',
+                text: 'Publish Complete!'
+            },
+            error: {
+                infoClass: 'admin-form__error',
+                text: 'Whoops! Some fields need your attention :o',
             }
         };
 
-        for (let key in objUploadInput) {
-            
-            let obj = objUploadInput[key],
-            wrapper = document.querySelector(obj.wrapperSelector),
-            input = wrapper.querySelector(inputSelector),
-            uploadBtn = wrapper.querySelector(uploadBtnSelector),
-            uploadNewBtn = wrapper.querySelector(uploadNewBtnSelector),
-            removeBtn = wrapper.querySelector(removeBtnSelector),
-            imageSelectorArr = obj.imageSelector,
-            deleteUploadBtn = obj.deleteUploadBtn;
-
-
-            input.addEventListener('input', (event) => {
-                updateAndRemoveImage(true, event.target, imageSelectorArr, uploadBtn, uploadNewBtn, removeBtn, deleteUploadBtn);
-                if (input.files[0]) {
-                    reader.readAsDataURL(input.files[0]);
-                    reader.onloadend = () => {
-                        image[input.getAttribute('name')] = String(reader.result);
-                    };
-                    
-                }
-            });
-
-            removeBtn.addEventListener('click', () => {
-                updateAndRemoveImage(false, input,imageSelectorArr, uploadBtn, uploadNewBtn, removeBtn, deleteUploadBtn);
-                image[input.getAttribute('name')] = '';
-            });
-        }
-    };
-    uploadImage(objUploadInput, objClassesInputAndBtnsForUploadImage);
-
-
-    const objInputTextAndPreviewText = {
-        previewTitle: {
-            input: '#adminPostTitle',
-            previewText: ['#adminPostTitlePreview', '#adminPostTitlePreviewPost'],
-            required: true
-        },
-        previewDescr: {
-            input: '#adminPostShortDescr',
-            previewText: ['#adminPostShortDescrPreview', '#adminPostShortDescrPreviewPost'], 
-            required: true
-        },
-        previewAuthor: {
-            input: '#adminPostAuthorName',
-            previewText: ['#adminPostAuthorNamePreview'],
-            required: true
-        },
-        previewDate: {
-            input: '#adminPostPublishDate',
-            previewText: ['#adminPostPublishDatePreview'],
-            required: false
-        },
-        previewContent: {
-            input: '#adminPostText',
-            previewText: [],
-            required: true
-        }
-    };
-
-    const updateTextInPreview = (objInputTextAndPreviewText, inputTextClassError, hiddenClass, attrStartText) => {
-
-        for(let key in objInputTextAndPreviewText) {
-            let obj, previewTextArr, previewText, input, required;
-
-            obj = objInputTextAndPreviewText[key];
-            input = document.querySelector(obj.input);
-            previewTextArr = obj.previewText,
-            required = obj.required;
-            
-            input.addEventListener('input', (event) => {
-                previewTextArr.forEach((classPreview) => {
-                    previewText = document.querySelector(classPreview);
-                    previewText.innerHTML =  event.target.value; 
-                    validateIntput(event.target, inputTextClassError, hiddenClass);
-                    if (event.target.value === '') {
-                        previewText.innerHTML = previewText.getAttribute(attrStartText); 
-                    }
-                    
-                });
-            });
-
-            
-        }
-    };
-
-    updateTextInPreview(objInputTextAndPreviewText, 'admin-form__input-text_error', 'hidden', 'data-preview-text');
-    
-    postForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-        const formData = new FormData(postForm);
-
-        const promise = new Promise(function(resolve, reject) {
-
-            if(validateForm('.admin-form__error', '.admin-form__input-text', 'admin-form__input-text_error', 'hidden') ) {
-                for (let key in image) {
-                    formData.set(key, image[key]);
-                }
-                postForm.reset();
-                resolve(JSON.stringify(Object.fromEntries(formData)));
-            } else {
-                reject('Ошибка ввода данных');
+        
+        
+        
+        if (validateForm(inputsText)) {
+            for (let key in imageForm) {
+                newFormData[key] = imageForm[key];
             }
 
-        });
-        
-        promise
-            .then(data => console.log(data));
+            infoComponent.classList.remove(infoAboutStateSubmitForm.error.infoClass);
+            infoComponent.classList.add(infoAboutStateSubmitForm.success.infoClass);
+            infoComponent.classList.remove(hiddenClass);
+            infoComponent.innerHTML = infoAboutStateSubmitForm.success.text;
+
+            console.log(newFormData);
+            console.log(JSON.stringify(newFormData));
+        } else {
+
+            infoComponent.classList.remove(infoAboutStateSubmitForm.success.infoClass);
+            infoComponent.classList.add(infoAboutStateSubmitForm.error.infoClass);
+            infoComponent.classList.remove(hiddenClass);
+            infoComponent.innerHTML = infoAboutStateSubmitForm.error.text;
+
+            console.error('Ошибка!');
+        }
+
     });
 
     

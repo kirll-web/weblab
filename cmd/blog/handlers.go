@@ -2,15 +2,26 @@ package main
 
 import (
 	"database/sql"
+	"encoding/json"
 	"html/template"
+	"io"
 	"log"
 	"net/http"
 	"strconv"
 
-	_ "github.com/go-sql-driver/mysql" // Импортируем для возможности подключения к MySQL
 	"github.com/gorilla/mux"
 	"github.com/jmoiron/sqlx"
 )
+
+type createPostRequest struct {
+	Title       string `json:"title"`
+	Subtitle    string `json:"subtitle"`
+	ImgModifier string `json:"image_url"`
+	Autor       string `json:"author"`
+	AutorImg    string `json:"author_url"`
+	PublishDate string `json:"publish_date"`
+	Content     string `json:"content"`
+}
 
 type indexPageData struct {
 	Title           string
@@ -149,6 +160,118 @@ func adminPost(db *sqlx.DB) func(w http.ResponseWriter, r *http.Request) {
 
 		log.Println("Request completed successfully")
 	}
+}
+
+func createPost(db *sqlx.DB) func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
+		reqData, err := io.ReadAll(r.Body) // Прочитали тело запроса с reqData в виде массива байт
+		if err != nil {
+			http.Error(w, "1Error", 500)
+			log.Println(err.Error())
+			return
+		}
+
+		var req createPostRequest // Заранее объявили переменную  createOrderRequest
+
+		err = json.Unmarshal(reqData, &req) // Отдали reqData и req на парсинг библиотеке json
+		if err != nil {
+			http.Error(w, "2Error", 500)
+			log.Println(err.Error())
+			return
+		}
+
+	}
+
+}
+
+// func createPost(db *sqlx.DB) func(w http.ResponseWriter, r *http.Request) {
+// 	return func(w http.ResponseWriter, r *http.Request) {
+// 		reqData, err := io.ReadAll(r.Body)
+// 		if err != nil {
+// 			http.Error(w, "1Error", 500)
+// 			log.Println(err.Error())
+// 			return
+// 		}
+
+// 		var req createPostRequest
+
+// 		authorImg, err := base64.StdEncoding.DecodeString(req.AuthorPhoto)
+// 		if err != nil {
+// 			http.Error(w, "img", 500)
+// 			log.Println(err.Error())
+// 			return
+// 		}
+
+// 		fileAuthor, err := os.Create("static/images/" + req.AuthorPhotoName)
+
+// 		_, err = fileAuthor.Write(authorImg)
+
+// 		bigImg, err := base64.StdEncoding.DecodeString(req.BigImage)
+// 		if err != nil {
+// 			http.Error(w, "img", 500)
+// 			log.Println(err.Error())
+// 			return
+// 		}
+
+// 		fileBig, err := os.Create("static/images/" + req.BigImageName)
+
+// 		_, err = fileBig.Write(bigImg)
+
+// 		smallImg, err := base64.StdEncoding.DecodeString(req.AuthorPhoto)
+// 		if err != nil {
+// 			http.Error(w, "img", 500)
+// 			log.Println(err.Error())
+// 			return
+// 		}
+
+// 		fileSmall, err := os.Create("static/images/" + req.AuthorPhotoName)
+
+// 		_, err = fileSmall.Write(smallImg)
+
+// 		err = json.Unmarshal(reqData, &req)
+// 		if err != nil {
+// 			http.Error(w, "2Error", 500)
+// 			log.Println(err.Error())
+// 			return
+// 		}
+
+// 		err = saveOrder(db, req)
+// 		if err != nil {
+// 			http.Error(w, "bd", 500)
+// 			log.Println(err.Error())
+// 			return
+// 		}
+// 		return
+// 	}
+// }
+
+func savePost(db *sqlx.DB, req createPostRequest) error {
+	const query = `
+		INSERT INTO 
+			post 
+		(
+			title,
+			subtitle,
+			author,
+			author_url,
+			publish_date,
+			image_url,
+			featured
+		) 
+		VALUES 
+		(
+			?,
+			?,
+			?,
+			?,
+			?,
+			?,
+			0
+		);
+	`
+
+	_, err := db.Exec(query, req.Title, req.Subtitle, req.ImgModifier, req.Autor, req.AutorImg, req.PublishDate, req.Content) // Сами данные передаются через аргументы к ф-ии Exec
+	return err
 }
 
 func post(db *sqlx.DB) func(w http.ResponseWriter, r *http.Request) {
