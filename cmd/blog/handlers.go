@@ -177,7 +177,7 @@ func createPost(db *sqlx.DB) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		reqData, err := io.ReadAll(r.Body)
 		if err != nil {
-			http.Error(w, "1Error", 500)
+			http.Error(w, "error", 500)
 			log.Println(err.Error())
 			return
 		}
@@ -185,21 +185,21 @@ func createPost(db *sqlx.DB) func(w http.ResponseWriter, r *http.Request) {
 		var req createPostRequest
 		err = json.Unmarshal(reqData, &req)
 		if err != nil {
-			http.Error(w, "2Error", 500)
+			http.Error(w, "Please, download all images", 500)
 			log.Println(err.Error())
 			return
 		}
 
 		authorImg, err := base64.StdEncoding.DecodeString(req.AuthorPhoto[strings.IndexByte(req.AuthorPhoto, ',')+1:])
 		if err != nil {
-			http.Error(w, "author1"+err.Error(), 500)
+			http.Error(w, "error", 500)
 			log.Println(err.Error())
 			return
 		}
 
 		fileAuthor, err := os.Create("static/img/post_autor/" + req.AuthorPhotoName)
 		if err != nil {
-			http.Error(w, "author2"+err.Error(), 500)
+			http.Error(w, "error", 500)
 			log.Println(err.Error())
 			return
 		}
@@ -207,21 +207,21 @@ func createPost(db *sqlx.DB) func(w http.ResponseWriter, r *http.Request) {
 
 		_, err = fileAuthor.Write(authorImg)
 		if err != nil {
-			http.Error(w, "author3"+err.Error(), 500)
+			http.Error(w, "error", 500)
 			log.Println(err.Error())
 			return
 		}
 
 		bigImg, err := base64.StdEncoding.DecodeString(req.BigImage[strings.IndexByte(req.BigImage, ',')+1:])
 		if err != nil {
-			http.Error(w, "bigimg1"+err.Error(), 500)
+			http.Error(w, "error", 500)
 			log.Println(err.Error())
 			return
 		}
 
 		fileBig, err := os.Create("static/img/post_photo/" + req.BigImageName)
 		if err != nil {
-			http.Error(w, "bigimg2"+err.Error(), 500)
+			http.Error(w, err.Error(), 500)
 			log.Println(err.Error())
 			return
 		}
@@ -229,21 +229,21 @@ func createPost(db *sqlx.DB) func(w http.ResponseWriter, r *http.Request) {
 
 		_, err = fileBig.Write(bigImg)
 		if err != nil {
-			http.Error(w, "bigimg3"+err.Error(), 500)
+			http.Error(w, "error", 500)
 			log.Println(err.Error())
 			return
 		}
 
 		smallImg, err := base64.StdEncoding.DecodeString(req.SmallImage[strings.IndexByte(req.SmallImage, ',')+1:])
 		if err != nil {
-			http.Error(w, "smallimg1"+err.Error(), 500)
+			http.Error(w, "error", 500)
 			log.Println(err.Error())
 			return
 		}
 
 		fileSmall, err := os.Create("static/img/post_photo/" + req.SmallImageName)
 		if err != nil {
-			http.Error(w, "smallimg2"+err.Error(), 500)
+			http.Error(w, "error", 500)
 			log.Println(err.Error())
 			return
 		}
@@ -251,7 +251,7 @@ func createPost(db *sqlx.DB) func(w http.ResponseWriter, r *http.Request) {
 
 		_, err = fileSmall.Write(smallImg)
 		if err != nil {
-			http.Error(w, "smallimg3"+err.Error(), 500)
+			http.Error(w, "error", 500)
 			log.Println(err.Error())
 			return
 		}

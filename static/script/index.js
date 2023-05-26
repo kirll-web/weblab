@@ -54,14 +54,11 @@ document.addEventListener('DOMContentLoaded', () => {
             reader.readAsDataURL(input.files[0]);
             reader.onloadend  =  () => {
                 imageForm[input.getAttribute('name')] = String(reader.result);
-                // imageForm[input.getAttribute('name')] = '';
                 imageForm[`${input.getAttribute('name')}Name`] = input.files[0].name;
-                //     imageInBase64: ,
-                //     nameFile: input.files[0].name
-                // };
             };
         } else {
-            imageForm[input.getAttribute('name')] = {};
+            imageForm[input.getAttribute('name')] = '';
+            imageForm[`${input.getAttribute('name')}Name`] = '';
         }
     };
 
@@ -207,17 +204,26 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
-        
+        function showError(error) {
+            infoComponent.classList.remove(infoAboutStateSubmitForm.success.infoClass);
+            infoComponent.classList.add(infoAboutStateSubmitForm.error.infoClass);
+            infoComponent.classList.remove(hiddenClass);
+            infoComponent.innerHTML = error;
+        }
+
+        function showSuccess() {
+            infoComponent.classList.remove(infoAboutStateSubmitForm.error.infoClass);
+            infoComponent.classList.add(infoAboutStateSubmitForm.success.infoClass);
+            infoComponent.classList.remove(hiddenClass);
+            infoComponent.innerHTML = infoAboutStateSubmitForm.success.text;
+        }
         
         if (validateForm(inputsText)) {
             for (let key in imageForm) {
                 newFormData[key] = imageForm[key];
             }
 
-            infoComponent.classList.remove(infoAboutStateSubmitForm.error.infoClass);
-            infoComponent.classList.add(infoAboutStateSubmitForm.success.infoClass);
-            infoComponent.classList.remove(hiddenClass);
-            infoComponent.innerHTML = infoAboutStateSubmitForm.success.text;
+            
 
             console.log(newFormData);
             console.log(JSON.stringify(newFormData));
@@ -234,18 +240,20 @@ document.addEventListener('DOMContentLoaded', () => {
             createPost.then((response) => {
                 response.text().then(function (data) {
                     let result = data;
-                    console.log(result);
+                    if(result) {
+                        showError(result);
+                        console.error('Ошибка!');
+                    } else {
+                        showSuccess();
+                    }
                 });
             }).catch((error) => {
-                console.log(error);
+                showError(infoAboutStateSubmitForm.error.text);
+                console.error('Ошибка!');
             });
 
         } else {
-            infoComponent.classList.remove(infoAboutStateSubmitForm.success.infoClass);
-            infoComponent.classList.add(infoAboutStateSubmitForm.error.infoClass);
-            infoComponent.classList.remove(hiddenClass);
-            infoComponent.innerHTML = infoAboutStateSubmitForm.error.text;
-
+            showError(infoAboutStateSubmitForm.error.text);
             console.error('Ошибка!');
         }
 
