@@ -192,14 +192,14 @@ func createPost(db *sqlx.DB) func(w http.ResponseWriter, r *http.Request) {
 
 		authorImg, err := base64.StdEncoding.DecodeString(req.AuthorPhoto[strings.IndexByte(req.AuthorPhoto, ',')+1:])
 		if err != nil {
-			http.Error(w, "error", 500)
+			http.Error(w, "Please, download author image", 500)
 			log.Println(err.Error())
 			return
 		}
 
 		fileAuthor, err := os.Create("static/img/post_autor/" + req.AuthorPhotoName)
 		if err != nil {
-			http.Error(w, "error", 500)
+			http.Error(w, "Error, download to server", 500)
 			log.Println(err.Error())
 			return
 		}
@@ -207,14 +207,14 @@ func createPost(db *sqlx.DB) func(w http.ResponseWriter, r *http.Request) {
 
 		_, err = fileAuthor.Write(authorImg)
 		if err != nil {
-			http.Error(w, "error", 500)
+			http.Error(w, "Error, download to server", 500)
 			log.Println(err.Error())
 			return
 		}
 
 		bigImg, err := base64.StdEncoding.DecodeString(req.BigImage[strings.IndexByte(req.BigImage, ',')+1:])
 		if err != nil {
-			http.Error(w, "error", 500)
+			http.Error(w, "Please, download article preview", 500)
 			log.Println(err.Error())
 			return
 		}
@@ -387,10 +387,6 @@ func featuredPosts(db *sqlx.DB) ([]featuredPostData, error) {
 	if err != nil {                 // Проверяем, что запрос в базу данных не завершился с ошибкой
 		return nil, err
 	}
-
-	// for _, post := range posts {
-	// 	post.PostUrl = "/post/" + post.PostId // Формируем исходя из ID ордера в базе
-	// }
 
 	return posts, nil
 }

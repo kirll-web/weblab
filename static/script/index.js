@@ -207,14 +207,14 @@ document.addEventListener('DOMContentLoaded', () => {
         function showError(error) {
             infoComponent.classList.remove(infoAboutStateSubmitForm.success.infoClass);
             infoComponent.classList.add(infoAboutStateSubmitForm.error.infoClass);
-            infoComponent.classList.remove(hiddenClass);
+            // infoComponent.classList.remove(hiddenClass);
             infoComponent.innerHTML = error;
         }
 
         function showSuccess() {
             infoComponent.classList.remove(infoAboutStateSubmitForm.error.infoClass);
             infoComponent.classList.add(infoAboutStateSubmitForm.success.infoClass);
-            infoComponent.classList.remove(hiddenClass);
+            // infoComponent.classList.remove(hiddenClass);
             infoComponent.innerHTML = infoAboutStateSubmitForm.success.text;
         }
         
@@ -222,8 +222,6 @@ document.addEventListener('DOMContentLoaded', () => {
             for (let key in imageForm) {
                 newFormData[key] = imageForm[key];
             }
-
-            
 
             console.log(newFormData);
             console.log(JSON.stringify(newFormData));
@@ -258,5 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
     });
+
+    
     
 });

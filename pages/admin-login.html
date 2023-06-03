@@ -21,16 +21,14 @@
             Log in to start creating
           </p>
         </div>
-        <form action="#" class="admin-form admin-form_login">
+        <form id="formLogin"  class="admin-form admin-form_login">
           <h2 class="admin-form__title">
             Log In
           </h2>
-          <div class="admin-form__info admin-form__error">
-            Email or password is incorrect.
-          </div>
+          <div class="admin-form__info"></div>
           <div class="admin-form__input-wrapper admin-form__input-text-wrapper">
             <label for="loginEmail" class="admin-form__input-label">Email</label>
-            <input id="loginEmail" name="loginEmail" type="email" class="admin-form__input-text">
+            <input id="loginEmail" name="loginEmail" type="text" class="admin-form__input-text">
             <label for="loginEmail" class="admin-form__input-error hidden">Email is required.</label>
           </div>
           <div class="admin-form__input-wrapper admin-form__input-text-wrapper admin-form__input-text_password">
@@ -43,6 +41,6 @@
       </div>
     </div>
   </section>
-  <script src="../static/script/index.js"></script>
+  <script src="../static/script/login.js"></script>
 </body>
 </html>
