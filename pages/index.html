@@ -14,12 +14,15 @@
     <header class="header header_theme-white">
       <div class="container header__inner">
         <span class="logo">Escape.</span>
-        <nav class="menu">
-          <a href="#" class="menu__item">HOME</a>
-          <a href="#" class="menu__item">Categories</a>
-          <a href="#" class="menu__item">About</a>
-          <a href="#" class="menu__item">Contact</a>
+        <nav class="menu header__menu ">
+          <a href="#" class="menu__item header__menu-item">HOME</a>
+          <a href="#" class="menu__item header__menu-item">Categories</a>
+          <a href="#" class="menu__item header__menu-item">About</a>
+          <a href="#" class="menu__item header__menu-item">Contact</a>
         </nav>
+        <div class="burger-menu">
+          <div class="burger-menu__stick"></div>
+        </div>
       </div>
     </header>
     <div class="container">
@@ -78,7 +81,8 @@
           {{ range .MostRecentPosts }}
               <article class="most-recent__post">
                 <a href="/post/{{ .PostId }}"  rel="noopener noreferrer">
-                  <img src="{{ .ImgModifier }}" alt="Фото поста" class="most-recent__post-img">
+                  <!-- <img src="" alt="Фото поста" class="most-recent__post-img"> -->
+                  <div style="background: url('{{ .ImgModifier }}') center center/cover no-repeat" class="most-recent__post-img"></div>
                   <div class="most-recent__post-body">
                     <h3 class="most-recent__post-title">
                       {{ .Title }}
@@ -127,5 +131,6 @@
       </div>
     </footer>
   </section>
+  <script src="static/script/burger.js"></script>
 </body>
 </html>
