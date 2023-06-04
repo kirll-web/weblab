@@ -29,6 +29,8 @@ func main() {
 	mux.HandleFunc("/admin-login", adminLogin(dbx))
 	mux.HandleFunc("/admin", adminPost(dbx))
 	mux.HandleFunc("/create-post", createPost(dbx)).Methods(http.MethodPost)
+	mux.HandleFunc("/api/auth", authUser(dbx)).Methods(http.MethodPost)
+	mux.HandleFunc("/api/logout", logout()).Methods(http.MethodPost)
 	// mux.HandleFunc("/post", post(dbx))
 
 	// Указывем orderID поста в URL для перехода на конкретный пост

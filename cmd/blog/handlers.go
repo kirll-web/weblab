@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"encoding/base64"
 	"encoding/json"
+	"fmt"
 	"html/template"
 	"io"
 	"log"
@@ -11,9 +12,14 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/gorilla/mux"
 	"github.com/jmoiron/sqlx"
+)
+
+const (
+	authCookieName = "auth"
 )
 
 type createPostRequest struct {
@@ -30,6 +36,12 @@ type createPostRequest struct {
 	BigImage        string `json:"postBigImage"`
 	SmallImage      string `json:"postSmallImage"`
 	AuthorPhoto     string `json:"postAdminPhoto"`
+}
+
+type userData struct {
+	UserId   string `db:"user_id"`
+	Email    string `json:"loginEmail"`
+	Password string `json:"loginPassword"`
 }
 
 // {"postTitle":"asd","postShortDescr":"asd","postAuthorName":"asd","postAdminPhoto":{},"postPublishDate":"2023-05-18","postBigImage":{"imageInBase64":"","nameFile":"0jmigrLMi0o.jpg"},"postContent":"asd"}
@@ -123,6 +135,86 @@ func index(db *sqlx.DB) func(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func authUser(db *sqlx.DB) func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
+
+		reqData, err := io.ReadAll(r.Body)
+		if err != nil {
+			http.Error(w, "error", 500)
+			log.Println(err.Error())
+			return
+		}
+
+		var req userData
+		err = json.Unmarshal(reqData, &req)
+		if err != nil {
+			http.Error(w, "Enter password and email", 500)
+			log.Println(err.Error())
+			return
+		}
+
+		userData, err := getUserId(db, req.Email, req.Password)
+		if err != nil {
+			if err == sql.ErrNoRows {
+				// sql.ErrNoRows возвращается, когда в запросе к базе не было ничего найдено
+				// В таком случае мы возвращем 404 (not found) и пишем в тело, что ордер не найден
+				http.Error(w, "Incorrect password or email", 401)
+				log.Println(err.Error())
+				http.SetCookie(w, &http.Cookie{
+					Name:    "auth", // Устанавливаем имя куки, которую нужно удалить
+					Path:    "/",
+					Expires: time.Now().AddDate(0, 0, -1), // Выставляем дату протухания в “прошлом”
+				})
+				return
+			}
+
+			http.Error(w, "Internal server error", 500)
+			log.Println(err.Error())
+			return
+		}
+
+		// http.Redirect(w, r, "/admin-login", http.StatusSeeOther)
+		// http.Error(w, "redirect", 500)
+		// log.Println(err.Error())
+
+		http.SetCookie(w, &http.Cookie{
+			Name:    authCookieName,              // Устанавливаем имя куки
+			Value:   fmt.Sprint(userData.UserId), // Конвертируем userID из user из типа int в string
+			Path:    "/",                         // Говорим куке действовать по всем путям сайта
+			Expires: time.Now().AddDate(0, 0, 1), // говорим куке протухнуть через день
+		})
+
+		w.WriteHeader(200)
+
+		log.Println("Request completed successfully")
+
+	}
+}
+
+func getUserId(db *sqlx.DB, email string, password string) (userData, error) {
+	const query = `
+		SELECT
+			user_id
+		FROM
+			` + "`user`" +
+		`WHERE
+			email = ? AND
+			password = ?
+	`
+	// SELECT user_id FROM `user` WHERE email = ?, password = ?
+	// В SQL-запросе добавились параметры, как в шаблоне. ? означает параметр, который мы передаем в запрос ниже
+
+	var user userData
+
+	// Обязательно нужно передать в параметрах orderID
+	err := db.Get(&user, query, email, password)
+	if err != nil {
+		return userData{}, err
+	}
+
+	return user, nil
+}
+
 func adminLogin(db *sqlx.DB) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 
@@ -150,6 +242,10 @@ func adminLogin(db *sqlx.DB) func(w http.ResponseWriter, r *http.Request) {
 
 func adminPost(db *sqlx.DB) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
+		err := authByCookie(db, w, r)
+		if err != nil {
+			return
+		}
 
 		ts, err := template.ParseFiles("pages/admin-post.html") // Главная страница блога
 		if err != nil {
@@ -170,6 +266,79 @@ func adminPost(db *sqlx.DB) func(w http.ResponseWriter, r *http.Request) {
 		}
 
 		log.Println("Request completed successfully")
+	}
+}
+
+func authByCookie(db *sqlx.DB, w http.ResponseWriter, r *http.Request) error {
+	// Получаем куку или реагируем на её отсутствие
+	cookie, err := r.Cookie(authCookieName)
+	if err != nil {
+		if err == http.ErrNoCookie {
+			http.Error(w, "No auth cookie passed", 401)
+			log.Println(err)
+			return err
+		}
+		http.Error(w, "Internal Server Error", 500)
+		log.Println(err)
+		return err
+	}
+
+	//Достаём userIDStr из куки
+	userIDStr := cookie.Value
+
+	userID, err := strconv.Atoi(userIDStr)
+	if err != nil {
+		http.Error(w, "Invalid user id", 403)
+		log.Println(err)
+		return err
+	}
+
+	// Поиск пользователя в бд. Если пользователь найден, то завершаем ф-ию
+
+	_, err = userByID(db, userID)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			http.Error(w, "User not found", 403)
+			return err
+		}
+		http.Error(w, "Internal servev error", 500)
+		log.Println(err)
+		return err
+	}
+	return nil
+}
+
+func userByID(db *sqlx.DB, userID int) (userData, error) {
+	const query = `
+		SELECT
+			user_id,
+			email
+		FROM
+			` + "`user`" +
+		`WHERE
+			user_id = ?
+	`
+
+	var user userData
+
+	// Обязательно нужно передать в параметрах orderID
+	err := db.Get(&user, query, userID)
+	if err != nil {
+		return userData{}, err
+	}
+
+	return user, nil
+}
+
+func logout() func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
+		http.SetCookie(w, &http.Cookie{
+			Name:    authCookieName, // Устанавливаем имя куки, которую нужно удалить
+			Path:    "/",
+			Expires: time.Now().AddDate(0, 0, -1), // Выставляем дату протухания в “прошлом”
+		})
+
+		log.Println("Request complete successfully")
 	}
 }
 

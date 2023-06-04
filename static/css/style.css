@@ -671,9 +671,8 @@
 }
 
 
-.admin-form__input-text_password::after
+.admin-form__input-text_password-eye
 {
-    content: '';
     position: absolute;
     top: 50%;
     right: 4px;
@@ -681,7 +680,6 @@
     display: block;
     width: 24px;
     height: 24px;
-    background: url('../img/icons/password-eye.svg') center center/cover no-repeat;
 }
 
 .admin-form__input-error

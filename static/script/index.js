@@ -256,5 +256,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
     });
+
+    const logoutBtn = document.querySelector('#logoutBtn');
+
+    logoutBtn.addEventListener('click', () => {
+        const logout = fetch("/api/logout", {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "POST"
+        });
+
+
+        logout.then((response) => {
+            response.text().then(function (data) {
+                console.log(response.statusText);
+                if(response.ok) {
+                    window.location.replace('http://localhost:3000/home');
+                }
+            });
+        }).catch((error) => {
+            console.log(error);
+        });
+    });
     
 });
